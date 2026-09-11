@@ -189,6 +189,7 @@ select option{color:#111;background:#fff}
 .tab:hover{color:var(--txt);background:var(--glass2)}
 .tab.active{color:var(--pri-txt);background:var(--glass-hi);font-weight:600;box-shadow:var(--shadow)}
 [data-theme="escuro"] .tab.active{background:rgba(255,255,255,.12)}
+.tab .n:empty{display:none}
 .tab .n{background:var(--glass3);border:1px solid var(--gb2);border-radius:99px;font-size:10.5px;padding:0 6px;color:var(--txt2)}
 .tab .n.hot{background:var(--err);color:#fff;border-color:transparent}
 .pane{display:none;padding-top:14px}
@@ -704,6 +705,49 @@ html.m .strow .acts,html.m .strun .acts{order:3;margin-left:auto}
 .tramo h3 .dot{width:10px;height:10px;border-radius:50%;flex:none}
 .tramo h3 .mini{margin-left:auto;font-weight:500}
 @media (max-width:760px){.tcols{columns:1}}
+/* ---------- parte 10: vínculos abaixo do artigo ---------- */
+.vinc{margin-top:12px;padding-top:10px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:7px}
+.vsec{display:flex;flex-wrap:wrap;gap:5px;align-items:center;font-size:12px}
+.vlab{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.7px;color:var(--txt3);margin-right:2px;flex:0 0 auto;min-width:112px}
+.vsec .mini{color:var(--txt3)}
+.vchip{cursor:pointer;padding-right:3px;transition:.14s;max-width:340px}
+.vchip:hover{border-color:var(--pri);color:var(--pri-txt);background:var(--glass3)}
+.vchip.on{background:var(--pri);color:#fff;border-color:transparent;box-shadow:0 4px 12px -5px rgba(79,70,229,.8)}
+.vchip.on .x{color:rgba(255,255,255,.75)}
+.vchip.quebrada{color:var(--err);border-color:var(--err);cursor:default}
+.vchip .ob{color:var(--warn);font-style:normal;font-weight:800}
+.vchip .x{opacity:0;margin-left:2px;padding:0 4px;border-radius:6px;font-weight:800;color:var(--txt3);line-height:1}
+.vchip:hover .x{opacity:1}
+.vchip .x:hover{background:var(--err-soft);color:var(--err)}
+.vsec .btn.sm{font-size:11.5px;padding:3px 8px}
+.vprev{border:1px solid var(--gb);background:var(--panel);border-radius:14px;padding:12px 15px;box-shadow:var(--shadow),inset 0 1px 0 var(--glass-hi);margin-top:3px;animation:vpin .18s ease}
+@keyframes vpin{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.vp-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding-bottom:8px;border-bottom:1px solid var(--line);margin-bottom:8px}
+.vp-head b{font-size:14px}
+.vp-crumbs{margin-bottom:6px;font-size:11px;color:var(--txt3);text-transform:uppercase;letter-spacing:.5px;font-weight:600;font-family:var(--ui)}
+.vp-crumbs span+span:before{content:"›";margin:0 6px;color:var(--line2)}
+.vp-obs{font-size:12.5px;color:var(--warn);background:var(--warn-soft);border-radius:8px;padding:5px 9px;margin-bottom:8px}
+.vp-corpo{font-family:var(--read-font);font-size:calc(var(--fs) - 1px);line-height:1.6;max-height:340px;overflow:auto;color:var(--txt)}
+.vp-corpo p{margin:0 0 8px}
+.vp-corpo table{border-collapse:collapse}
+.vp-corpo td,.vp-corpo th{border:1px solid var(--line2);padding:4px 7px}
+.vp-extra{margin-top:9px;padding-top:8px;border-top:1px dashed var(--line2);font-size:13px;line-height:1.55}
+.vp-extra>b{font-family:var(--ui);font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--txt3)}
+.vprev.solta .vp-corpo{max-height:52vh}
+@media (max-width:760px){.vlab{min-width:100%;margin-bottom:-2px}.vchip{max-width:100%}}
+.vchip.juris{border-color:var(--tc);color:var(--tc);background:color-mix(in srgb,var(--tc) 10%,transparent)}
+.vchip.juris .tj{width:7px;height:7px;border-radius:2px;background:var(--tc);display:inline-block;margin-right:2px;flex:none}
+.vchip.juris .jt{font-weight:500;opacity:.85}
+.vchip.juris .vz{font-style:italic;opacity:.6;font-weight:500}
+.vchip.juris:hover{background:color-mix(in srgb,var(--tc) 20%,transparent);border-color:var(--tc)}
+.vchip.juris.on{background:var(--tc);color:#fff;border-color:transparent}
+.vchip.juris.on .tj{background:rgba(255,255,255,.85)}
+.notatab .tj{width:7px;height:7px;border-radius:2px;display:inline-block;margin-right:5px;flex:none;vertical-align:middle}
+.jr-tipo{width:auto;max-width:210px;font-size:11.5px;padding:4px 7px;border-radius:8px;border-color:var(--c);color:var(--c);font-weight:600}
+.tj-list{display:flex;flex-direction:column;gap:6px;max-height:46vh;overflow:auto;padding-right:2px}
+.tj-row{display:flex;gap:7px;align-items:center}
+.tj-row .inp{padding:5px 8px;font-size:12.5px}
+.tj-vinc{display:flex;align-items:center;gap:4px;font-size:11.5px;color:var(--txt2);white-space:nowrap;cursor:pointer;font-weight:500}
 @media (max-width:1100px){.app,.app.rail-collapsed{grid-template-columns:66px 290px 1fr}.rail .brand span,.rail .navbtn span,.rail .sec,.rail .ramos,.navbtn .kbd,.foot .lbl{display:none}.navbtn{justify-content:center}}
 /* ---------- modo móvel (html.m) ---------- */
 .tabbar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--glass3);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border-top:1px solid var(--gb);padding:6px 4px calc(6px + env(safe-area-inset-bottom));justify-content:space-around;gap:2px}
@@ -988,7 +1032,7 @@ const AMOSTRA = {
 function textoParaHtml(t) { return t.split('\n').map(l => `<p>${esc(l)}</p>`).join(''); }
 
 function novoArtigo(numero, html, extra = {}) {
-  return Object.assign({ id: uid(), tipo: 'art', numero, texto: html, estrelas: 0, status: 'vigente', tags: [], notas: '', juris: '', favorito: false, links: [], atualizacoes: [], criadoEm: new Date().toISOString(), atualizadoEm: null }, extra);
+  return Object.assign({ id: uid(), tipo: 'art', numero, texto: html, estrelas: 0, status: 'vigente', tags: [], notas: '', juris: '', favorito: false, links: [], refsMan: [], refsOff: [], atualizacoes: [], criadoEm: new Date().toISOString(), atualizadoEm: null }, extra);
 }
 function novoCab(nivel, rotulo, titulo) { return { id: uid(), tipo: 'cab', nivel, rotulo, titulo: titulo || '' }; }
 
@@ -1009,7 +1053,7 @@ function seedState() {
   a5.links.push({ leiId: cf.id, artId: a145.id, obs: 'Matriz constitucional das espécies tributárias (teoria tripartite do CTN × pentapartite do STF).' });
   a5.notas = '<p>Amostra de anotação. O STF adota a classificação <i>pentapartite</i> (impostos, taxas, contribuições de melhoria, empréstimos compulsórios e contribuições especiais). Conferir julgados antes de citar.</p>';
   return {
-    versao: 2, ramos, leis, cadernos: [], concursos: [], cronos: [], agenda: [], ia: IA_DEF(),
+    versao: 2, ramos, leis, cadernos: [], concursos: [], cronos: [], agenda: [], tiposJuris: TIPOS_JURIS_SEED.map(([id, nome, abrev, cor, v]) => ({ id, nome, abrev, cor, vinc: !!v })), ia: IA_DEF(),
     prefs: { tema: 'claro', fonte: 'serif', fs: 18, ramoAtivo: null, ultimo: null, rail: false, tree: true, openSum: {} },
     meta: { ultimoBackup: null, criadoEm: new Date().toISOString(), primeiroUso: true, rev: 0 },
   };
@@ -1119,7 +1163,7 @@ function parseTexto(txt) {
 </script>
 <script>
 /* ================= UI: estado, ícones, utilitários ================= */
-const UI = { view: 'leitura', leiId: null, artId: null, tab: 'leitura', dirty: false, openLeis: new Set(), openGrps: new Set(), treeFilter: '', busca: { q: '', modo: 'tudo', ramo: '', lei: '', estrelas: 0 }, rev: null, favSeg: 'fav', notaId: null, reordenar: false, cadId: null, openCads: new Set(), cadTab: 'conteudo', leiTab: 'inicio', leiSeg: 'sum', conTab: 'certames', cronoId: null, cronoSeg: 'painel', cronoOpen: new Set(), temaModo: 'abc', temaRamo: '', temaF: '', calY: new Date().getFullYear(), calM: new Date().getMonth() };
+const UI = { view: 'leitura', leiId: null, artId: null, tab: 'leitura', dirty: false, openLeis: new Set(), openGrps: new Set(), treeFilter: '', busca: { q: '', modo: 'tudo', ramo: '', lei: '', estrelas: 0 }, rev: null, favSeg: 'fav', notaId: null, jurisId: null, vprev: null, reordenar: false, cadId: null, openCads: new Set(), cadTab: 'conteudo', leiTab: 'inicio', leiSeg: 'sum', conTab: 'certames', cronoId: null, cronoSeg: 'painel', cronoOpen: new Set(), temaModo: 'abc', temaRamo: '', temaF: '', calY: new Date().getFullYear(), calM: new Date().getMonth() };
 const I = {
   chev: '<svg class="chev" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>',
   star: '★', note: '<svg class="nt" viewBox="0 0 24 24"><path d="M4 4h12l4 4v12H4z"/><path d="M8 12h8M8 16h5"/></svg>',
@@ -1247,7 +1291,7 @@ function showView(v) {
 function openArt(leiId, artId, tab) {
   flushDirty();
   const r = findArt(leiId, artId); if (!r) { toast('Artigo não encontrado', 'err'); return; }
-  if (UI.artId !== artId) UI.notaId = null;
+  if (UI.artId !== artId) { UI.notaId = null; UI.jurisId = null; UI.vprev = null; }
   UI.leiId = leiId; UI.artId = artId; if (tab) UI.tab = tab; UI.openLeis.add(leiId);
   if (S.prefs.ramoAtivo && !r.lei.ramos.includes(S.prefs.ramoAtivo)) { S.prefs.ramoAtivo = null; renderRamos(); }
   if (UI.treeFilter && !norm(r.lei.sigla + ' ' + r.lei.nome + ' ' + r.lei.epigrafe).includes(norm(UI.treeFilter.trim()))) { UI.treeFilter = ''; $('#tree-filter').value = ''; }
@@ -1307,17 +1351,17 @@ function renderReader() {
       <div class="chips" style="margin-top:6px">${lei.ramos.map(r => ramoById(r)).filter(Boolean).map(r => `<span class="chip ramo" style="background:${r.cor}">${esc(r.nome)}</span>`).join('')}${lei.amostra ? '<span class="chip amostra" title="Artigos de amostra: conferir com o texto oficial e importar a íntegra">amostra · conferir no Planalto</span>' : ''}</div></div>
     <div class="acts">${lei.url ? `<a class="ibtn" href="${esc(lei.url)}" target="_blank" rel="noopener" title="Abrir no Planalto">${I.ext}</a>` : ''}<button class="ibtn" id="r-imp" title="Importar/colar texto da lei">${I.imp}</button><button class="ibtn" id="r-add" title="Adicionar artigo">${I.plus}</button><button class="ibtn" id="r-edit" title="Editar dados da lei">${I.edit}</button><button class="ibtn" id="r-print" title="Imprimir / PDF">${I.print}</button></div></div>`;
   if (!art) return renderLeiHome(lei);
-  const nUp = art.atualizacoes.filter(u => !u.visto).length; const nLinks = art.links.length + refBy(art.id).length;
+  const nUp = art.atualizacoes.filter(u => !u.visto).length;
   if (!art.ia) art.ia = [];
-  const tabs = [['leitura', 'Leitura', ''], ['notas', 'Notas', nNotas(art) || ''], ['juris', 'Jurisprudência', temJuris(art) ? '•' : ''], ['links', 'Correlações', nLinks || ''], ['atual', 'Atualizações', art.atualizacoes.length || ''], ['ia', 'IA', art.ia.length || '']];
-  R.innerHTML = head + `<div class="tabs">${tabs.map(([k, l, n]) => `<button class="tab ${UI.tab === k ? 'active' : ''}" data-tab="${k}">${l}${n !== '' ? `<span class="n ${k === 'atual' && nUp ? 'hot' : ''}">${k === 'atual' && nUp ? nUp : n}</span>` : ''}</button>`).join('')}</div>
-    <div class="pane ${UI.tab === 'leitura' ? 'active' : ''}" id="pane-leitura"></div><div class="pane ${UI.tab === 'notas' ? 'active' : ''}" id="pane-notas"></div><div class="pane ${UI.tab === 'juris' ? 'active' : ''}" id="pane-juris"></div><div class="pane ${UI.tab === 'links' ? 'active' : ''}" id="pane-links"></div><div class="pane ${UI.tab === 'atual' ? 'active' : ''}" id="pane-atual"></div><div class="pane ${UI.tab === 'ia' ? 'active' : ''}" id="pane-ia"></div>`;
+  const tabs = [['leitura', 'Leitura', ''], ['notas', 'Notas', nNotas(art) || ''], ['juris', 'Jurisprudência', nJuris(art) || ''], ['atual', 'Atualizações', art.atualizacoes.length || ''], ['ia', 'IA', art.ia.length || '']];
+  R.innerHTML = head + `<div class="tabs">${tabs.map(([k, l, n]) => `<button class="tab ${UI.tab === k ? 'active' : ''}" data-tab="${k}">${l}${n !== '' || k === 'notas' || k === 'juris' ? `<span class="n ${k === 'atual' && nUp ? 'hot' : ''}">${k === 'atual' && nUp ? nUp : n}</span>` : ''}</button>`).join('')}</div>
+    <div class="pane ${UI.tab === 'leitura' ? 'active' : ''}" id="pane-leitura"></div><div class="pane ${UI.tab === 'notas' ? 'active' : ''}" id="pane-notas"></div><div class="pane ${UI.tab === 'juris' ? 'active' : ''}" id="pane-juris"></div><div class="pane ${UI.tab === 'atual' ? 'active' : ''}" id="pane-atual"></div><div class="pane ${UI.tab === 'ia' ? 'active' : ''}" id="pane-ia"></div>`;
   R.classList.toggle('wide', UI.tab === 'notas' || UI.tab === 'juris');
   bindHead(lei); $('.rhead h2', R).onclick = () => openLeiHome(lei.id);
   $$('.tab', R).forEach(t => t.onclick = () => { flushDirty(); UI.tab = t.dataset.tab; renderReader(); });
-  renderPaneLeitura(lei, art); renderPaneLinks(lei, art); renderPaneAtual(lei, art);
+  renderPaneLeitura(lei, art); renderPaneAtual(lei, art);
   if (UI.tab === 'notas') renderPaneNotasMulti(lei, art);
-  if (UI.tab === 'juris') renderPaneJurisDoc(lei, art);
+  if (UI.tab === 'juris') renderPaneJurisMulti(lei, art);
   if (UI.tab === 'ia') renderPaneIA($('#pane-ia'), { tipo: 'artigo', obj: art, rotulo: `${lei.sigla}, ${artLabel(art)}`, contexto: () => contextoArtigo(lei, art), inserir: html => inserirNaNota(art, html) });
 }
 function bindHead(lei) { $('#r-imp').onclick = () => modalImportar(lei.id); $('#r-add').onclick = () => modalArtigo(lei.id); $('#r-edit').onclick = () => modalLei(lei.id); $('#r-print').onclick = () => window.print(); }
@@ -1333,7 +1377,7 @@ function renderPaneLeitura(lei, art) {
     <div class="tags-line" id="tags-line"></div>
     <div class="edit ${art.status === 'revogado' ? 'revogado' : ''}" id="ed-texto" contenteditable="true" spellcheck="false" data-ph="Digite ou cole aqui o texto do artigo…">${art.texto}</div>
     <div class="savebar" id="savebar"><span>${art.atualizadoEm ? 'Última edição em ' + fmtDate(art.atualizadoEm) : 'Sem edições registradas'}</span></div>
-    <div class="refs" id="refs"></div>
+    <div class="vinc" id="vinc"></div>
     <div class="artnav"><button class="btn" id="nav-prev"></button><span class="cur">${esc(artLabel(art))}</span><button class="btn" id="nav-next"></button></div></div>`;
   const ed = $('#ed-texto');
   $('#tb-leitura').appendChild(makeToolbar(ed, { save: () => salvarTexto() }));
@@ -1342,7 +1386,7 @@ function renderPaneLeitura(lei, art) {
   $('#art-status').onchange = e => { art.status = e.target.value; save(); renderReader(); renderTree(); };
   $('#art-fav').onclick = () => { art.favorito = !art.favorito; save(); renderReader(); };
   $('#art-more').onclick = () => menuArtigo(lei, art);
-  renderTags(art); renderRefs(lei, art);
+  renderTags(art); renderVinculos(lei, art);
   const pv = vizinho(-1), nx = vizinho(1);
   const bp = $('#nav-prev'), bn = $('#nav-next');
   bp.innerHTML = pv ? `‹ ${esc(artLabel(pv))}` : '‹ Anterior'; bp.disabled = !pv; bp.onclick = () => pv && openArt(lei.id, pv.id);
@@ -1355,22 +1399,11 @@ function renderTags(art) {
   const inp = $('#tag-in'); inp.onkeydown = e => { if (e.key === 'Enter' || e.key === ',') { e.preventDefault(); const v = inp.value.trim().replace(/,$/, ''); if (v && !art.tags.includes(v)) { art.tags.push(v); save(); renderTags(art); $('#tag-in').focus(); } } };
 }
 function allTags() { const m = new Map(); for (const l of S.leis) for (const a of artigosDe(l)) for (const t of a.tags) m.set(t, (m.get(t) || 0) + 1); for (const c of S.cadernos) for (const t of (c.tags || [])) m.set(t, (m.get(t) || 0) + 1); return [...m.entries()].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])); }
-function renderRefs(lei, art) {
-  const el = $('#refs'); const txt = plain(art.texto); const found = new Map();
-  const rx = /\bart(?:igo)?s?\.?\s*(\d+)\s*(?:º|o|°)?(?:\s*-\s*([A-Z]))?/gi; let m;
-  while ((m = rx.exec(txt))) { const n = normNumero(m[1] + (m[2] ? '-' + m[2] : '')); const t = artigosDe(lei).find(a => normNumero(a.numero) === n); if (t && t.id !== art.id) found.set(t.id, t); }
-  const rl = /\b(Lei(?:\s+Complementar)?|Decreto-Lei|Decreto)\s+n?\.?\s*º?\s*([\d.]+)/gi; const leis = new Map();
-  while ((m = rl.exec(txt))) { const num = m[2].replace(/\./g, ''); const l = S.leis.find(x => x.id !== lei.id && norm(x.epigrafe).replace(/\./g, '').includes(num)); if (l) leis.set(l.id, l); }
-  if (!found.size && !leis.size) { el.innerHTML = ''; return; }
-  el.innerHTML = `<span>Referências no texto:</span>${[...found.values()].map(a => `<span class="chip" data-go="${a.id}">${esc(lei.sigla)}, ${esc(artLabel(a))}</span>`).join('')}${[...leis.values()].map(l => `<span class="chip" data-golei="${l.id}">${esc(l.epigrafe)}</span>`).join('')}`;
-  $$('[data-go]', el).forEach(c => c.onclick = () => openArt(lei.id, c.dataset.go));
-  $$('[data-golei]', el).forEach(c => c.onclick = () => openLei(c.dataset.golei));
-}
 function salvarTexto(silent) {
   const r = findArt(UI.leiId, UI.artId); const ed = $('#ed-texto'); if (!r || !ed) return;
   const novo = ed.innerHTML, antigo = r.art.texto; if (novo === antigo) { UI.dirty = false; return; }
   const mudou = plain(novo) !== plain(antigo);
-  const aplicar = (reg) => { if (reg) r.art.atualizacoes.unshift(reg); r.art.texto = novo; r.art.atualizadoEm = new Date().toISOString(); UI.dirty = false; save(); if (!silent) { renderReader(); renderTree(); toast('Redação salva', 'ok'); } };
+  const aplicar = (reg) => { if (reg) r.art.atualizacoes.unshift(reg); r.art.texto = novo; r.art.atualizadoEm = new Date().toISOString(); UI.dirty = false; save(); if (!silent) { renderReader(); renderTree(); toast('Redação salva', 'ok'); } else if (typeof renderVinculos === 'function' && $('#vinc')) renderVinculos(r.lei, r.art); };
   if (!mudou || silent) { aplicar(mudou ? { id: uid(), tipo: 'edicao', norma: '', data: today(), resumo: 'Edição do texto (registro automático)', textoAnterior: plain(antigo), visto: true, criadoEm: new Date().toISOString() } : null); return; }
   openModal({ title: 'Registrar a alteração de redação', body: `<div class="form"><p class="hint" style="margin:0">O texto do artigo foi modificado. Como deseja registrar? A redação anterior fica guardada no histórico e pode ser restaurada.</p>
       <label>Tipo<select id="alt-tipo"><option value="correcao">Correção de digitação / conferência com o Planalto</option><option value="alterado">Alteração legislativa (nova redação)</option><option value="incluido">Inclusão (dispositivo novo)</option><option value="revogado">Revogação</option><option value="renumerado">Renumeração</option></select></label>
@@ -1383,17 +1416,6 @@ function flushDirty() { if (UI.dirty) { salvarTexto(true); toast('Redação salv
 
 function refBy(artId) { const out = []; for (const l of S.leis) for (const a of artigosDe(l)) for (const k of a.links) if (k.artId === artId) out.push({ lei: l, art: a, obs: k.obs }); return out; }
 function refByCad(artId) { return S.cadernos.filter(c => c.tipo === 'caderno' && c.links.some(k => k.artId === artId)); }
-function renderPaneLinks(lei, art) {
-  const P = $('#pane-links'); const back = refBy(art.id);
-  const row = (l, a, obs, extra) => `<div class="linkrow go" data-go="${l.id}:${a.id}"><span class="ico" style="background:${(ramoById(l.ramos[0]) || {}).cor || 'var(--txt3)'}">${esc(l.sigla.slice(0, 4))}</span><div class="t"><b>${esc(l.sigla)}, ${esc(artLabel(a))} <span class="mini" style="font-weight:400">— ${esc(l.nome)}</span></b><small>${esc(plain(a.texto).slice(0, 140))}</small>${obs ? `<em>${esc(obs)}</em>` : ''}</div>${extra || ''}</div>`;
-  P.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><div><b>Correlações deste artigo</b><div class="mini">Links diretos para artigos desta ou de outras leis. Clique para navegar.</div></div><button class="btn pri sm" id="lk-add">${I.plus} Adicionar correlação</button></div>
-    <div class="linklist">${art.links.map((k, i) => { const r = findArt(k.leiId, k.artId); return r ? row(r.lei, r.art, k.obs, `<button class="ibtn" data-del="${i}" title="Remover">${I.trash}</button>`) : `<div class="linkrow"><div class="t"><b>Referência quebrada</b><small>o artigo vinculado foi excluído</small></div><button class="ibtn" data-del="${i}">${I.trash}</button></div>`; }).join('') || '<div class="empty">Nenhuma correlação cadastrada.</div>'}</div>
-    ${back.length ? `<div style="margin:18px 0 8px"><b>Referenciado por</b><div class="mini">Artigos que apontam para este.</div></div><div class="linklist">${back.map(b => row(b.lei, b.art, b.obs)).join('')}</div>` : ''}
-    ${refByCad(art.id).length ? `<div style="margin:18px 0 8px"><b>Cadernos que citam este artigo</b></div><div class="linklist">${refByCad(art.id).map(c => `<div class="linkrow go" data-cad="${c.id}"><span class="ico" style="background:${(ramoById(c.ramo) || {}).cor || 'var(--txt3)'}">≡</span><div class="t"><b>${esc(c.titulo)}</b><small>${esc(plain(c.conteudo).slice(0, 140))}</small></div></div>`).join('')}</div>` : ''}`;
-  $('#lk-add').onclick = () => pickArtigo(r => { openModal({ title: 'Observação da correlação', body: `<div class="form"><p class="hint" style="margin:0">${esc(r.lei.sigla)}, ${esc(artLabel(r.art))}</p><label>Por que estes artigos se relacionam? (opcional)<input type="text" id="lk-obs" placeholder="ex.: regra geral × exceção"></label></div>`, buttons: [{ label: 'Cancelar' }, { label: 'Vincular', cls: 'pri', onClick: () => { art.links.push({ leiId: r.lei.id, artId: r.art.id, obs: $('#lk-obs').value.trim() }); save(); renderReader(); toast('Correlação adicionada', 'ok'); } }] }); });
-  $$('.linkrow.go', P).forEach(x => x.onclick = e => { if (e.target.closest('[data-del]')) return; if (x.dataset.cad) { openCad(x.dataset.cad); return; } const [l, a] = x.dataset.go.split(':'); openArt(l, a); });
-  $$('[data-del]', P).forEach(b => b.onclick = e => { e.stopPropagation(); art.links.splice(+b.dataset.del, 1); save(); renderReader(); });
-}
 function upCard(lei, art, u, showArt) {
   const lbl = { incluido: 'Incluído', alterado: 'Alterado', revogado: 'Revogado', renumerado: 'Renumerado', edicao: 'Edição', correcao: 'Correção' }[u.tipo] || u.tipo;
   return `<div class="card upcard ${u.visto ? 'visto' : ''}" data-u="${u.id}" data-art="${art.id}" data-lei="${lei.id}"><div class="h"><b>${showArt ? `${esc(lei.sigla)}, ${esc(artLabel(art))} — ` : ''}${esc(u.resumo || lbl)}${u.norma ? ` <span class="mini">(${esc(u.norma)})</span>` : ''}</b><time>${fmtDate(u.data)}</time></div>
@@ -1454,11 +1476,17 @@ function migrate(st) {
       if (a.tipo !== 'art') continue;
       if (!a.ia) a.ia = [];
       if (!a.notasList) { a.notasList = []; if (a.notas && plain(a.notas).trim()) a.notasList.push(novaNota({ id: 'n1-' + a.id, titulo: 'Nota 1', conteudo: a.notas, atualizadoEm: a.atualizadoEm || null })); delete a.notas; }
-      if (!a.jurisDoc) { a.jurisDoc = { conteudo: a.juris || '', doc: docDefaultNota() }; delete a.juris; }
+      if (!a.jurisList) { a.jurisList = []; const antigo = (a.jurisDoc && a.jurisDoc.conteudo) || a.juris || '';
+        if (plain(antigo).trim()) a.jurisList.push(novoJulgado({ id: 'j1-' + a.id, titulo: 'Julgado 1', conteudo: antigo, doc: (a.jurisDoc && a.jurisDoc.doc) || docDefaultNota(), atualizadoEm: (a.jurisDoc && a.jurisDoc.atualizadoEm) || a.atualizadoEm || null }));
+        delete a.juris; delete a.jurisDoc; }
+      a.jurisList.forEach(j => { if (!j.doc) j.doc = docDefaultNota(); if (j.tipo === undefined) j.tipo = 'persuasivo'; });
+      if (!Array.isArray(a.refsMan)) a.refsMan = [];
+      if (!Array.isArray(a.refsOff)) a.refsOff = [];
       a.notasList.forEach(n => { if (!n.doc) n.doc = docDefaultNota(); });
     }
   }
   for (const c of st.cadernos) { if (!c.ia) c.ia = []; if (!c.links) c.links = []; if (!c.tags) c.tags = []; if (c.tipo === 'caderno') { if (!c.doc) c.doc = docDefault(); if (!c.doc.modo) c.doc.modo = 'pagina'; } }
+  if (!Array.isArray(st.tiposJuris) || !st.tiposJuris.length) st.tiposJuris = TIPOS_JURIS_SEED.map(([id, nome, abrev, cor, v]) => ({ id, nome, abrev, cor, vinc: !!v }));
   if (!Array.isArray(st.concursos)) st.concursos = [];
   if (!Array.isArray(st.cronos)) st.cronos = [];
   if (!Array.isArray(st.agenda)) st.agenda = [];
@@ -1561,8 +1589,14 @@ function contextoArtigo(lei, art) {
   const ia = S.ia; let s = `LEI: ${lei.epigrafe} — ${lei.nome} (${lei.sigla})${lei.ementa ? '\nEmenta: ' + lei.ementa : ''}\nLOCALIZAÇÃO: ${crumbsDe(lei, art).join(' › ') || '(sem cabeçalho)'}\nSTATUS: ${art.status}\nTEXTO DO ${artLabel(art).toUpperCase()}:\n${plain(art.texto)}`;
   if (art.tags.length) s += `\nTEMAS: ${art.tags.join(', ')}`;
   if (ia.incluirNotas && temNota(art)) s += `\n\nNOTAS DO USUÁRIO (${nNotas(art)}):\n${notasTxt(art)}`;
-  if (ia.incluirJuris && temJuris(art)) s += `\n\nJURISPRUDÊNCIA ANOTADA PELO USUÁRIO:\n${jurisTxt(art)}`;
-  if (ia.incluirLinks && art.links.length) { s += '\n\nARTIGOS CORRELACIONADOS:'; for (const k of art.links) { const r = findArt(k.leiId, k.artId); if (r) s += `\n- ${r.lei.sigla}, ${artLabel(r.art)}${k.obs ? ' (' + k.obs + ')' : ''}: ${plain(r.art.texto).slice(0, 800)}`; } }
+  if (ia.incluirJuris && temJuris(art)) s += `\n\nJURISPRUDÊNCIA ANOTADA PELO USUÁRIO:\n${jurisDe(art).filter(jurisCheia).map(j => `[${tipoJurisNome(j.tipo)}] ${j.titulo}\n${plain(j.conteudo)}`).join('\n\n')}`;
+  if (ia.incluirLinks && art.links.length) {
+    s += '\n\nCORRELAÇÕES:';
+    for (const k of art.links) {
+      if (k.cadId) { const c = cadById(k.cadId); if (c) s += `\n- caderno "${c.titulo}"${k.obs ? ' (' + k.obs + ')' : ''}: ${plain(c.conteudo).slice(0, 800)}`; continue; }
+      const r = findArt(k.leiId, k.artId); if (r) s += `\n- ${r.lei.sigla}, ${artLabel(r.art)}${k.obs ? ' (' + k.obs + ')' : ''}: ${plain(r.art.texto).slice(0, 800)}`;
+    }
+  }
   return s;
 }
 function contextoLei(lei) {
@@ -1734,6 +1768,9 @@ function renderCadReader() {
     P.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><div><b>Artigos de lei relacionados a este caderno</b><div class="mini">Clique para abrir o artigo; ele também mostrará este caderno em "Referenciado por".</div></div><button class="btn pri sm" id="clk-add">${I.plus} Vincular artigo</button></div><div class="linklist">${c.links.map((k, i) => { const r2 = findArt(k.leiId, k.artId); return r2 ? row(r2.lei, r2.art, k.obs, i) : ''; }).join('') || '<div class="empty">Nenhum vínculo.</div>'}</div>`;
     $('#clk-add').onclick = () => pickArtigo(r2 => { c.links.push({ leiId: r2.lei.id, artId: r2.art.id, obs: '' }); save(); renderCadReader(); });
     $$('.linkrow.go', P).forEach(x => x.onclick = e => { if (e.target.closest('[data-del]')) return; const [l, a] = x.dataset.go.split(':'); openArt(l, a); });
+    const citam = artsQueCitamCaderno(c.id);
+    if (citam.length) P.insertAdjacentHTML('beforeend', `<div style="margin:18px 0 8px"><b>Artigos que citam este caderno</b><div class="mini">Correlações criadas na tela da legislação.</div></div><div class="linklist">${citam.map(x => `<div class="linkrow go2" data-go2="${x.lei.id}:${x.art.id}"><span class="ico" style="background:${(ramoById(x.lei.ramos[0]) || {}).cor || 'var(--txt3)'}">${esc(x.lei.sigla.slice(0, 4))}</span><div class="t"><b>${esc(x.lei.sigla)}, ${esc(artLabel(x.art))}</b><small>${esc(plain(x.art.texto).slice(0, 140))}</small>${x.obs ? `<em>${esc(x.obs)}</em>` : ''}</div></div>`).join('')}</div>`);
+    $$('.linkrow.go2', P).forEach(x => x.onclick = () => { const [l, a] = x.dataset.go2.split(':'); openArt(l, a); });
     $$('[data-del]', P).forEach(b => b.onclick = e => { e.stopPropagation(); c.links.splice(+b.dataset.del, 1); save(); renderCadReader(); });
   } else renderPaneIA(P, { tipo: 'caderno', obj: c, rotulo: `o caderno "${c.titulo}"`, contexto: () => contextoCaderno(c), inserir: html => { c.conteudo = (c.conteudo || '') + '<hr>' + html; c.atualizadoEm = new Date().toISOString(); save(); } });
 }
@@ -2374,9 +2411,34 @@ const nNotas = a => notasDe(a).filter(notaCheia).length;
 const temNota = a => nNotas(a) > 0;
 const notasTxt = a => notasDe(a).map(n => (n.titulo ? n.titulo + '\n' : '') + plain(n.conteudo)).join('\n\n');
 const notasHtml = a => notasDe(a).filter(notaCheia).map(n => `<div style="margin-top:8px"><b style="font-family:var(--ui);font-size:11.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--txt3)">${esc(n.titulo)}</b>${n.conteudo}</div>`).join('');
-const jurisDoc = a => { if (!a.jurisDoc) a.jurisDoc = { conteudo: '', doc: docDefaultNota() }; return a.jurisDoc; };
-const jurisTxt = a => plain(jurisDoc(a).conteudo);
-const temJuris = a => !!jurisTxt(a).trim();
+const CORES_JURIS = ['#0891b2', '#4f46e5', '#059669', '#b45309', '#dc2626', '#db2777', '#7c3aed', '#64748b'];
+/* [id, nome, abreviatura, cor, vinculante?] */
+const TIPOS_JURIS_SEED = [
+  ['sv', 'Súmula Vinculante', 'Súmula Vinculante', '#dc2626', 1],
+  ['sumula', 'Súmula', 'Súmula', '#b45309', 0],
+  ['repetitivo', 'Tese em Recurso Repetitivo', 'Repetitivo', '#4f46e5', 1],
+  ['rg', 'Tese em Repercussão Geral', 'Repercussão Geral', '#7c3aed', 1],
+  ['irdr', 'IRDR — Incidente de Resolução de Demandas Repetitivas', 'IRDR', '#0891b2', 1],
+  ['iac', 'IAC — Incidente de Assunção de Competência', 'IAC', '#0d9488', 1],
+  ['puil', 'PUIL — Pedido de Uniformização de Interpretação de Lei', 'PUIL', '#059669', 1],
+  ['adi', 'Controle concentrado (ADI, ADC, ADPF)', 'Controle concentrado', '#be123c', 1],
+  ['cjf', 'Enunciado das Jornadas de Direito Civil (CJF)', 'Enunciado CJF', '#65a30d', 0],
+  ['informativo', 'Informativo de jurisprudência', 'Informativo', '#0ea5e9', 0],
+  ['persuasivo', 'Precedente persuasivo', 'Persuasivo', '#64748b', 0],
+];
+const tiposJuris = () => { if (!Array.isArray(S.tiposJuris) || !S.tiposJuris.length) S.tiposJuris = TIPOS_JURIS_SEED.map(([id, nome, abrev, cor, v]) => ({ id, nome, abrev, cor, vinc: !!v })); return S.tiposJuris; };
+const tipoJuris = id => tiposJuris().find(t => t.id === id) || null;
+const tipoJurisNome = id => (tipoJuris(id) || {}).nome || 'Sem classificação';
+const tipoJurisAbrev = id => (tipoJuris(id) || {}).abrev || 'sem tipo';
+const tipoJurisCor = id => (tipoJuris(id) || {}).cor || 'var(--txt3)';
+const novoJulgado = (o = {}) => Object.assign({ id: uid(), titulo: 'Julgado', tipo: 'persuasivo', conteudo: '', cor: CORES_JURIS[0], doc: docDefaultNota(), criadoEm: new Date().toISOString(), atualizadoEm: null }, o);
+const jurisClassificados = a => jurisDe(a).filter(j => jurisCheia(j) || j.titulo !== 'Julgado');
+const jurisDe = a => (a && a.jurisList) || [];
+const jurisCheia = j => !!plain(j.conteudo).trim();
+const nJuris = a => jurisDe(a).filter(jurisCheia).length;
+const temJuris = a => nJuris(a) > 0;
+const jurisTxt = a => jurisDe(a).map(j => `${tipoJurisNome(j.tipo)} · ${j.titulo || ''}\n${plain(j.conteudo)}`).join('\n\n');
+const jurisHtml = a => jurisDe(a).filter(jurisCheia).map(j => `<div style="margin-top:8px"><b style="font-family:var(--ui);font-size:11.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--txt3)">${esc(j.titulo)}</b>${j.conteudo}</div>`).join('');
 const leiNotasDoc = l => { if (!l.notasDoc) l.notasDoc = { conteudo: '', doc: docDefaultNota() }; return l.notasDoc; };
 function inserirNaNota(art, html) {
   const ns = notasDe(art); let n = ns.find(x => x.id === UI.notaId) || ns[0];
@@ -2407,11 +2469,61 @@ function renderPaneNotasMulti(lei, art) {
   $('#nt-del', P).onclick = () => confirmar('Excluir nota', `Excluir "${esc(n.titulo)}" e todo o seu conteúdo?`, () => { art.notasList = ns.filter(x => x.id !== n.id); UI.notaId = (art.notasList[Math.max(0, i - 1)] || {}).id; save(); renderReader(); renderTree(); });
   renderDocEditor($('#nota-ed', P), n, { docPadrao: docDefaultNota, titulo: `${lei.sigla} ${artLabel(art)} — ${n.titulo}`, aoSalvar: () => { art.atualizadoEm = new Date().toISOString(); renderTree(); const t = $(`.notatab[data-n="${n.id}"]`, P); if (t && notaCheia(n)) t.innerHTML = esc(n.titulo || 'Nota'); } });
 }
-function renderReaderTabs(lei, art) { const t = $('.tab[data-tab="notas"] .n'); const q = nNotas(art); if (t) t.textContent = q || ''; }
-function renderPaneJurisDoc(lei, art) {
+function renderReaderTabs(lei, art) {
+  const t = $('.tab[data-tab="notas"] .n'); const q = nNotas(art); if (t) t.textContent = q || '';
+  const j = $('.tab[data-tab="juris"] .n'); if (j) j.textContent = nJuris(art) || '';
+}
+/* ---------- aba de jurisprudência: vários julgados ---------- */
+function renderPaneJurisMulti(lei, art) {
   const P = $('#pane-juris'); if (!P) return;
-  P.innerHTML = `<div class="mini" style="margin:0 0 8px;padding:0 2px">Súmulas, teses repetitivas, informativos e julgados sobre este artigo. Formato sugerido: (STJ, REsp n. …, Relator Ministro …, Terceira Turma, j. 1/1/2025).</div><div id="juris-ed"></div>`;
-  renderDocEditor($('#juris-ed', P), jurisDoc(art), { docPadrao: docDefaultNota, titulo: `${lei.sigla} ${artLabel(art)} — jurisprudência`, aoSalvar: () => { art.atualizadoEm = new Date().toISOString(); renderTree(); } });
+  if (!art.jurisList) art.jurisList = [];
+  if (!art.jurisList.length) { art.jurisList.push(novoJulgado({ titulo: 'Julgado 1' })); save(); }
+  const js = art.jurisList;
+  let i = js.findIndex(x => x.id === UI.jurisId); if (i < 0) i = 0;
+  UI.jurisId = js[i].id; const j = js[i];
+  P.innerHTML = `<div class="notabar">
+      <div class="notatabs">${js.map((x, k) => `<button class="notatab ${k === i ? 'on' : ''}" data-j="${x.id}" style="--c:${esc(x.cor || CORES_JURIS[0])}" title="${esc(tipoJurisNome(x.tipo) + ' — ' + (plain(x.conteudo).slice(0, 130) || 'sem conteúdo'))}"><i class="tj" style="background:${tipoJurisCor(x.tipo)}"></i>${esc(x.titulo || 'Julgado ' + (k + 1))}${jurisCheia(x) ? '' : ' <i>vazio</i>'}</button>`).join('')}<button class="notatab add" id="jr-add" title="Registrar outro julgado neste artigo">${I.plus} novo julgado</button></div>
+      <div class="notaops"><select class="inp jr-tipo" id="jr-tp" title="Qualidade do julgado" style="--c:${tipoJurisCor(j.tipo)}"><option value="">Sem classificação</option>${tiposJuris().map(t => `<option value="${t.id}" ${j.tipo === t.id ? 'selected' : ''}>${esc(t.nome)}</option>`).join('')}</select><button class="ibtn" id="jr-tps" title="Cadastrar ou editar os tipos de julgado">${I.plus}</button><button class="ibtn" id="jr-ren" title="Renomear">${I.edit}</button><button class="ibtn" id="jr-cor" title="Cor">🎨</button><button class="ibtn" id="jr-esq" title="Mover para a esquerda">◀</button><button class="ibtn" id="jr-dir" title="Mover para a direita">▶</button><button class="ibtn" id="jr-dup" title="Duplicar">⧉</button><button class="ibtn" id="jr-del" title="Excluir este julgado">${I.trash}</button></div>
+    </div><div class="mini" style="margin:0 0 8px;padding:0 2px"><span class="chip" style="background:${tipoJurisCor(j.tipo)}1f;color:${tipoJurisCor(j.tipo)};border-color:transparent">${esc(tipoJurisNome(j.tipo))}${(tipoJuris(j.tipo) || {}).vinc ? ' · vinculante' : ''}</span> ${js.length} julgado${js.length > 1 ? 's' : ''} neste artigo${j.atualizadoEm ? ' · este foi editado em ' + fmtDate(j.atualizadoEm) : ''}. Formato sugerido: (STJ, REsp n. …, Relator Ministro …, Terceira Turma, j. 1/1/2025).</div><div id="juris-ed"></div>`;
+  $$('.notatab[data-j]', P).forEach(b => b.onclick = () => { flushDirty(); UI.jurisId = b.dataset.j; renderPaneJurisMulti(lei, art); });
+  $('#jr-add', P).onclick = () => { const nv = novoJulgado({ titulo: 'Julgado ' + (js.length + 1) }); js.push(nv); UI.jurisId = nv.id; save(); renderPaneJurisMulti(lei, art); renderReaderTabs(lei, art); };
+  $('#jr-tp', P).onchange = e => { j.tipo = e.target.value; j.atualizadoEm = new Date().toISOString(); art.atualizadoEm = new Date().toISOString(); save(); renderPaneJurisMulti(lei, art); if ($('#vinc')) renderVinculos(lei, art); };
+  $('#jr-tps', P).onclick = () => modalTiposJuris(() => { renderPaneJurisMulti(lei, art); if ($('#vinc')) renderVinculos(lei, art); });
+  $('#jr-ren', P).onclick = () => openModal({ title: 'Renomear julgado', body: `<div class="form"><label>Título<input type="text" id="jr-t" value="${esc(j.titulo)}" placeholder="ex.: STJ, Tema 1.000"></label></div>`, buttons: [{ label: 'Cancelar' }, { label: 'Salvar', cls: 'pri', onClick: () => { j.titulo = $('#jr-t').value.trim() || j.titulo; save(); renderPaneJurisMulti(lei, art); } }] });
+  $('#jr-cor', P).onclick = () => openModal({ title: 'Cor do julgado', body: `<div class="palgrid">${CORES_JURIS.map(c => `<button class="pg" data-c="${c}" style="background:${c}"></button>`).join('')}</div>`, buttons: [{ label: 'Fechar' }], onOpen: b => $$('.pg', b).forEach(x => x.onclick = () => { j.cor = x.dataset.c; save(); closeModal(); renderPaneJurisMulti(lei, art); }) });
+  const mover = d => { const k = i + d; if (k < 0 || k >= js.length) return; js.splice(k, 0, js.splice(i, 1)[0]); save(); renderPaneJurisMulti(lei, art); };
+  $('#jr-esq', P).onclick = () => mover(-1); $('#jr-dir', P).onclick = () => mover(1);
+  $('#jr-dup', P).onclick = () => { const nv = novoJulgado({ titulo: j.titulo + ' (cópia)', conteudo: j.conteudo, cor: j.cor, doc: JSON.parse(JSON.stringify(j.doc || docDefaultNota())) }); js.splice(i + 1, 0, nv); UI.jurisId = nv.id; save(); renderPaneJurisMulti(lei, art); renderReaderTabs(lei, art); };
+  $('#jr-del', P).onclick = () => confirmar('Excluir julgado', `Excluir "${esc(j.titulo)}" e todo o seu conteúdo?`, () => { art.jurisList = js.filter(x => x.id !== j.id); UI.jurisId = (art.jurisList[Math.max(0, i - 1)] || {}).id; save(); renderReader(); renderTree(); });
+  renderDocEditor($('#juris-ed', P), j, { docPadrao: docDefaultNota, titulo: `${lei.sigla} ${artLabel(art)} — ${j.titulo}`, aoSalvar: () => { art.atualizadoEm = new Date().toISOString(); renderTree(); const t = $(`.notatab[data-j="${j.id}"]`, P); if (t && jurisCheia(j)) t.innerHTML = `<i class="tj" style="background:${tipoJurisCor(j.tipo)}"></i>` + esc(j.titulo || 'Julgado'); if ($('#vinc')) renderVinculos(lei, art); } });
+}
+/* ---------- cadastro dos tipos de julgado ---------- */
+function modalTiposJuris(depois) {
+  const linhas = () => tiposJuris().map((t, i) => `<div class="tj-row" data-i="${i}"><input type="color" class="inp" data-c value="${t.cor}" style="width:34px;height:30px;padding:2px;flex:none">
+      <input class="inp" data-n value="${esc(t.nome)}" placeholder="nome completo"><input class="inp" data-a value="${esc(t.abrev)}" placeholder="abreviatura" style="max-width:150px">
+      <label class="tj-vinc" title="Marque se o entendimento é de observância obrigatória"><input type="checkbox" data-v ${t.vinc ? 'checked' : ''}> vinculante</label>
+      <button class="ibtn" data-x title="Excluir este tipo">${I.trash}</button></div>`).join('');
+  openModal({
+    title: 'Tipos de julgado', wide: true,
+    body: `<div class="form"><p class="hint" style="margin:0">A qualidade do julgado aparece na aba Jurisprudência e na linha de vínculos abaixo do artigo. Edite os nomes, as cores e as abreviaturas, ou cadastre outros tipos. Excluir um tipo não apaga os julgados — eles ficam sem classificação.</p>
+      <div class="tj-list" id="tj-list">${linhas()}</div><div><button class="btn" id="tj-add">${I.plus} Novo tipo</button> <button class="btn ghost" id="tj-reset">Restaurar a lista padrão</button></div></div>`,
+    buttons: [{ label: 'Fechar', cls: 'pri', onClick: () => { save(); if (depois) depois(); } }],
+    onOpen: b => {
+      const liga = () => {
+        $$('.tj-row', b).forEach(row => {
+          const t = tiposJuris()[+row.dataset.i]; if (!t) return;
+          $('[data-n]', row).onchange = e => { t.nome = e.target.value.trim() || t.nome; save(); };
+          $('[data-a]', row).onchange = e => { t.abrev = e.target.value.trim() || t.nome; save(); };
+          $('[data-c]', row).onchange = e => { t.cor = e.target.value; save(); };
+          $('[data-v]', row).onchange = e => { t.vinc = e.target.checked; save(); };
+          $('[data-x]', row).onclick = () => confirmar('Excluir tipo', `Excluir <b>${esc(t.nome)}</b> da lista? Os julgados assim classificados ficam sem classificação.`, () => { S.tiposJuris = tiposJuris().filter(x => x.id !== t.id); save(); $('#tj-list', b).innerHTML = linhas(); liga(); });
+        });
+      };
+      liga();
+      $('#tj-add', b).onclick = () => { tiposJuris().push({ id: uid(), nome: 'Novo tipo', abrev: 'Novo tipo', cor: CORES_JURIS[Math.floor(Math.random() * CORES_JURIS.length)], vinc: false }); save(); $('#tj-list', b).innerHTML = linhas(); liga(); };
+      $('#tj-reset', b).onclick = () => confirmar('Restaurar a lista padrão', 'Os tipos que você cadastrou serão perdidos. Os julgados continuam intactos.', () => { S.tiposJuris = null; tiposJuris(); save(); $('#tj-list', b).innerHTML = linhas(); liga(); }, false);
+    },
+  });
 }
 
 /* ---------- ordenação das leis ---------- */
@@ -3970,6 +4082,226 @@ function bindAgenda(V) {
 </script>
 <script>
 /* =====================================================================
+   PARTE 10 — vínculos abaixo do artigo: referências no texto (com edição
+   manual), correlações e pré-visualização sem sair da página
+   ===================================================================== */
+const refsMan = a => { if (!a.refsMan) a.refsMan = []; return a.refsMan; };
+const refsOff = a => { if (!a.refsOff) a.refsOff = []; return a.refsOff; };
+
+/* ---- detecção automática no texto do artigo ---- */
+function refsDetectadas(lei, art) {
+  const txt = plain(art.texto), out = [];
+  const vistos = new Set();
+  const rx = /\bart(?:igo)?s?\.?\s*(\d+)\s*(?:º|o|°)?(?:\s*-\s*([A-Z]))?/gi; let m;
+  while ((m = rx.exec(txt))) {
+    const n = normNumero(m[1] + (m[2] ? '-' + m[2] : ''));
+    const t = artigosDe(lei).find(a => normNumero(a.numero) === n);
+    if (t && t.id !== art.id && normNumero(t.numero) !== normNumero(art.numero) && !vistos.has('a:' + t.id)) { vistos.add('a:' + t.id); out.push({ k: 'a:' + t.id, tipo: 'art', lei, art: t }); }
+  }
+  const rl = /\b(Lei(?:\s+Complementar)?|Decreto-Lei|Decreto)\s+n?\.?\s*º?\s*([\d.]+)/gi;
+  while ((m = rl.exec(txt))) {
+    const num = m[2].replace(/\./g, '');
+    if (num.length < 3) continue;
+    const l = S.leis.find(x => x.id !== lei.id && norm(x.epigrafe).replace(/\./g, '').includes(num));
+    if (l && !vistos.has('l:' + l.id)) { vistos.add('l:' + l.id); out.push({ k: 'l:' + l.id, tipo: 'lei', lei: l }); }
+  }
+  return out;
+}
+function refsDoArtigo(lei, art) {
+  const off = new Set(refsOff(art));
+  const auto = refsDetectadas(lei, art).filter(r => !off.has(r.k)).map(r => Object.assign({ auto: true }, r));
+  const man = [];
+  for (const r of refsMan(art)) {
+    if (r.artId) { const f = findArt(r.leiId, r.artId); if (f) man.push({ k: 'm:' + r.id, tipo: 'art', lei: f.lei, art: f.art, man: r }); }
+    else { const l = leiById(r.leiId); if (l) man.push({ k: 'm:' + r.id, tipo: 'lei', lei: l, man: r }); }
+  }
+  return auto.concat(man);
+}
+const refRotulo = r => r.tipo === 'art' ? `${r.lei.sigla}, ${artLabel(r.art)}` : r.lei.epigrafe;
+
+/* ---- pré-visualização ---- */
+const artsQueCitamCaderno = cadId => { const out = []; for (const l of S.leis) for (const a of artigosDe(l)) for (const k of a.links) if (k.cadId === cadId) out.push({ lei: l, art: a, obs: k.obs }); return out; };
+function alvoDaChave(lei, art, k) {
+  if (k && k.startsWith('j:')) { const j = jurisDe(art).find(x => x.id === k.slice(2)); return j ? { tipo: 'jur', jur: j, lei, art } : null; }
+  if (k && k.startsWith('c:')) {
+    const i = +k.slice(2); const kk = art.links[i]; if (!kk) return null;
+    if (kk.cadId) { const c = cadById(kk.cadId); return c ? { tipo: 'cad', cad: c, obs: kk.obs } : null; }
+    const f = findArt(kk.leiId, kk.artId); return f ? { tipo: 'art', lei: f.lei, art: f.art, obs: kk.obs } : null;
+  }
+  if (k && k.startsWith('b:')) { const f = findArt(k.slice(2).split('|')[0], k.slice(2).split('|')[1]); return f ? { tipo: 'art', lei: f.lei, art: f.art } : null; }
+  if (k && k.startsWith('d:')) { const c = cadById(k.slice(2)); return c ? { tipo: 'cad', cad: c } : null; }
+  const todos = refsDoArtigo(lei, art);
+  return todos.find(r => r.k === k) || null;
+}
+function previewHTML(al) {
+  if (!al) return '<div class="empty">Item não encontrado — pode ter sido excluído.</div>';
+  if (al.tipo === 'jur') {
+    const j = al.jur, t = tipoJuris(j.tipo);
+    return `<div class="vp-head"><span class="chip" style="background:${tipoJurisCor(j.tipo)}1f;color:${tipoJurisCor(j.tipo)};border-color:transparent">${esc(tipoJurisNome(j.tipo))}${t && t.vinc ? ' · vinculante' : ''}</span><b>${esc(j.titulo)}</b><span style="flex:1"></span>
+      <button class="btn sm" data-vp="janela">⧉ janela</button><button class="btn sm pri" data-vp="abrir">Editar na aba</button><button class="btn sm ghost" data-vp="fechar">✕</button></div>
+      <div class="vp-corpo">${sanitizeHtml(j.conteudo) || '<div class="empty">Julgado sem conteúdo.</div>'}</div>`;
+  }
+  if (al.tipo === 'cad') {
+    const c = al.cad;
+    return `<div class="vp-head"><b>${esc(c.titulo)}</b><span class="mini">caderno · ${esc((ramoById(c.ramo) || {}).nome || 'sem ramo')}</span><span style="flex:1"></span>
+      <button class="btn sm" data-vp="janela">⧉ janela</button><button class="btn sm pri" data-vp="abrir">Abrir caderno</button><button class="btn sm ghost" data-vp="fechar">✕</button></div>
+      ${al.obs ? `<div class="vp-obs">${esc(al.obs)}</div>` : ''}
+      <div class="vp-corpo">${sanitizeHtml(c.conteudo) || '<div class="empty">Caderno sem conteúdo.</div>'}</div>`;
+  }
+  if (al.tipo === 'lei') {
+    const l = al.lei, arts = artigosDe(l);
+    return `<div class="vp-head"><b>${esc(l.epigrafe)}</b><span class="mini">${esc(l.nome)}</span><span style="flex:1"></span>
+      <button class="btn sm" data-vp="janela">⧉ janela</button><button class="btn sm pri" data-vp="abrir">Abrir lei</button><button class="btn sm ghost" data-vp="fechar">✕</button></div>
+      <div class="vp-corpo"><p class="mini">${arts.length ? `${nfBR.format(arts.length)} artigos cadastrados.` : 'Texto ainda não importado.'}${l.ementa ? ' ' + esc(l.ementa) : ''}</p>
+      ${arts.slice(0, 3).map(a => `<p><b>${esc(artLabel(a))}</b> ${esc(plain(a.texto).replace(/^Art\.?\s*[\d.ºo°\-A-Z]+\.?\s*/i, '').slice(0, 180))}…</p>`).join('')}</div>`;
+  }
+  const a = al.art, l = al.lei, cr = crumbsDe(l, a);
+  return `<div class="vp-head"><b>${esc(l.sigla)}, ${esc(artLabel(a))}</b><span class="mini">${esc(l.epigrafe)}</span>
+      ${a.estrelas ? `<span style="color:var(--star)">${'★'.repeat(a.estrelas)}</span>` : ''}${a.status !== 'vigente' ? `<span class="status ${a.status}">${a.status}</span>` : ''}<span style="flex:1"></span>
+      <button class="btn sm" data-vp="janela">⧉ janela</button><button class="btn sm pri" data-vp="abrir">Abrir artigo</button><button class="btn sm ghost" data-vp="fechar">✕</button></div>
+    ${cr.length ? `<div class="crumbs vp-crumbs">${cr.map(c => `<span>${esc(c)}</span>`).join('')}</div>` : ''}
+    ${al.obs ? `<div class="vp-obs">${esc(al.obs)}</div>` : ''}
+    <div class="vp-corpo leitura">${sanitizeHtml(a.texto) || '<div class="empty">Artigo sem texto.</div>'}</div>
+    ${temNota(a) ? `<div class="vp-extra"><b>Notas</b>${notasHtml(a)}</div>` : ''}
+    ${temJuris(a) ? `<div class="vp-extra"><b>Jurisprudência</b>${jurisHtml(a)}</div>` : ''}`;
+}
+function abrirAlvo(al) {
+  if (!al) return;
+  if (al.tipo === 'jur') { UI.jurisId = al.jur.id; UI.vprev = null; openArt(al.lei.id, al.art.id, 'juris'); return; }
+  if (al.tipo === 'cad') openCad(al.cad.id);
+  else if (al.tipo === 'lei') openLeiHome(al.lei.id);
+  else openArt(al.lei.id, al.art.id);
+}
+function janelaPreview(lei, art, k) {
+  const al = alvoDaChave(lei, art, k);
+  openModal({
+    title: al ? (al.tipo === 'jur' ? al.jur.titulo : al.tipo === 'cad' ? al.cad.titulo : al.tipo === 'lei' ? al.lei.epigrafe : `${al.lei.sigla}, ${artLabel(al.art)}`) : 'Referência',
+    wide: true, body: `<div class="vprev solta">${previewHTML(al)}</div>`,
+    buttons: [{ label: 'Fechar' }, { label: 'Abrir', cls: 'pri', onClick: () => abrirAlvo(al) }],
+    onOpen: b => $$('[data-vp]', b).forEach(x => x.onclick = () => { if (x.dataset.vp === 'abrir') { closeModal(); abrirAlvo(al); } else closeModal(); }),
+  });
+}
+
+/* ---- bloco de vínculos ---- */
+function renderVinculos(lei, art) {
+  const el = $('#vinc'); if (!el) return;
+  const refs = refsDoArtigo(lei, art);
+  const back = refBy(art.id), cads = refByCad(art.id);
+  const ocultas = refsOff(art).length;
+  const chip = (k, rot, extra, tit) => `<span class="chip vchip ${UI.vprev === k ? 'on' : ''}" data-k="${k}" title="${esc(tit || rot)}">${esc(rot)}${extra || ''}</span>`;
+  let h = `<div class="vsec"><span class="vlab">Referências no texto</span>
+      ${refs.map(r => chip(r.k, refRotulo(r), `<button class="x" data-rm="${r.k}" title="Remover esta referência">×</button>`, plain(r.tipo === 'art' ? r.art.texto : r.lei.nome).slice(0, 160))).join('') || '<span class="mini">nenhuma detectada</span>'}
+      <button class="btn sm ghost" id="vr-add" title="Acrescentar uma referência que o programa não detectou">+ referência</button>
+      ${ocultas ? `<button class="btn sm ghost" id="vr-rest" title="Trazer de volta as referências que você removeu">restaurar ${ocultas}</button>` : ''}</div>
+    <div class="vsec"><span class="vlab">Correlações</span>
+      ${art.links.map((k, i) => {
+        const rm = `${k.obs ? ' <i class="ob">·</i>' : ''}<button class="x" data-dl="${i}" title="Remover correlação">×</button>`;
+        if (k.cadId) { const c = cadById(k.cadId); return c ? chip('c:' + i, '≡ ' + c.titulo, rm, (k.obs ? k.obs + ' — ' : '') + 'caderno · ' + plain(c.conteudo).slice(0, 150)) : `<span class="chip vchip quebrada">caderno excluído<button class="x" data-dl="${i}">×</button></span>`; }
+        const f = findArt(k.leiId, k.artId);
+        return f ? chip('c:' + i, `${f.lei.sigla}, ${artLabel(f.art)}`, rm, (k.obs ? k.obs + ' — ' : '') + plain(f.art.texto).slice(0, 160)) : `<span class="chip vchip quebrada">vínculo quebrado<button class="x" data-dl="${i}">×</button></span>`;
+      }).join('') || '<span class="mini">nenhuma cadastrada</span>'}
+      <button class="btn sm ghost" id="vc-add" title="Vincular este artigo a outro artigo ou a um caderno de estudos">+ correlação</button></div>
+    <div class="vsec"><span class="vlab">Jurisprudência</span>
+      ${jurisDe(art).map(j => (jurisCheia(j) || j.tipo) ? `<span class="chip vchip juris ${UI.vprev === 'j:' + j.id ? 'on' : ''}" data-k="j:${j.id}" style="--tc:${tipoJurisCor(j.tipo)}" title="${esc(tipoJurisNome(j.tipo) + ' — ' + (plain(j.conteudo).slice(0, 150) || 'sem conteúdo'))}"><i class="tj"></i>${esc(tipoJurisAbrev(j.tipo))}${j.titulo && j.titulo !== 'Julgado' && !/^Julgado \d+$/.test(j.titulo) ? ` <b class="jt">${esc(j.titulo)}</b>` : ''}${jurisCheia(j) ? '' : ' <i class="vz">vazio</i>'}</span>` : '').join('') || '<span class="mini">nenhum julgado registrado</span>'}
+      <button class="btn sm ghost" id="vj-add" title="Registrar um julgado na aba Jurisprudência">+ julgado</button></div>`;
+  if (back.length || cads.length) h += `<div class="vsec"><span class="vlab">Citado em</span>
+      ${back.map(b => chip('b:' + b.lei.id + '|' + b.art.id, `${b.lei.sigla}, ${artLabel(b.art)}`, '', (b.obs ? b.obs + ' — ' : '') + plain(b.art.texto).slice(0, 160))).join('')}
+      ${cads.map(c => chip('d:' + c.id, c.titulo, '', plain(c.conteudo).slice(0, 160))).join('')}</div>`;
+  const al = UI.vprev ? alvoDaChave(lei, art, UI.vprev) : null;
+  h += `<div class="vprev" id="vprev" ${UI.vprev ? '' : 'hidden'}>${UI.vprev ? previewHTML(al) : ''}</div>`;
+  el.innerHTML = h;
+
+  $$('.vchip', el).forEach(c => c.onclick = e => {
+    if (e.target.closest('.x')) return;
+    UI.vprev = UI.vprev === c.dataset.k ? null : c.dataset.k;
+    renderVinculos(lei, art);
+    if (UI.vprev) { const p = $('#vprev'); if (p) p.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
+  });
+  $$('[data-rm]', el).forEach(b => b.onclick = e => {
+    e.stopPropagation(); const k = b.dataset.rm;
+    if (k.startsWith('m:')) art.refsMan = refsMan(art).filter(x => 'm:' + x.id !== k);
+    else refsOff(art).push(k);
+    if (UI.vprev === k) UI.vprev = null;
+    save(); renderVinculos(lei, art);
+  });
+  $$('[data-dl]', el).forEach(b => b.onclick = e => { e.stopPropagation(); art.links.splice(+b.dataset.dl, 1); UI.vprev = null; save(); renderReader(); renderTree(); });
+  const rest = $('#vr-rest', el); if (rest) rest.onclick = () => { art.refsOff = []; save(); renderVinculos(lei, art); };
+  $('#vr-add', el).onclick = () => modalRefManual(lei, art);
+  $('#vc-add', el).onclick = () => modalCorrelacao(lei, art);
+  $('#vj-add', el).onclick = () => { const nv = novoJulgado({ titulo: 'Julgado ' + (jurisDe(art).length + 1) }); (art.jurisList = art.jurisList || []).push(nv); UI.jurisId = nv.id; art.atualizadoEm = new Date().toISOString(); save(); openArt(lei.id, art.id, 'juris'); };
+  const pv = $('#vprev', el);
+  if (pv) $$('[data-vp]', pv).forEach(x => x.onclick = () => {
+    const op = x.dataset.vp;
+    if (op === 'abrir') abrirAlvo(al);
+    else if (op === 'janela') { const k = UI.vprev; UI.vprev = null; renderVinculos(lei, art); janelaPreview(lei, art, k); }
+    else { UI.vprev = null; renderVinculos(lei, art); }
+  });
+}
+function modalCorrelacao(lei, art) {
+  const vincular = (dados, rot) => openModal({
+    title: 'Observação da correlação',
+    body: `<div class="form"><p class="hint" style="margin:0">${esc(rot)}</p><label>Por que se relacionam? (opcional)<input type="text" id="lk-obs" placeholder="ex.: regra geral × exceção; caderno com o resumo do tema"></label></div>`,
+    buttons: [{ label: 'Cancelar' }, { label: 'Vincular', cls: 'pri', onClick: () => { art.links.push(Object.assign({ obs: $('#lk-obs').value.trim() }, dados)); art.atualizadoEm = new Date().toISOString(); save(); renderVinculos(lei, art); renderTree(); toast('Correlação adicionada', 'ok'); } }],
+  });
+  const cads = S.cadernos.filter(c => c.tipo === 'caderno');
+  openModal({
+    title: 'Nova correlação',
+    body: `<div class="form"><p class="hint" style="margin:0">Ligue este artigo a outro dispositivo — desta ou de qualquer outra lei — ou a um caderno de estudos. A correlação aparece nos dois lados: aqui em etiqueta e, no caderno, em “Artigos que citam este caderno”.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn pri" id="cl-art">Artigo de lei</button><button class="btn" id="cl-cad" ${cads.length ? '' : 'disabled title="Nenhum caderno criado ainda"'}>Caderno de estudos${cads.length ? ` (${cads.length})` : ''}</button></div></div>`,
+    buttons: [{ label: 'Cancelar' }],
+    onOpen: b => {
+      $('#cl-art', b).onclick = () => { closeModal(); pickArtigo(r => vincular({ leiId: r.lei.id, artId: r.art.id }, `${r.lei.sigla}, ${artLabel(r.art)}`)); };
+      const bc = $('#cl-cad', b); if (!cads.length) return;
+      bc.onclick = () => {
+        closeModal();
+        openModal({
+          title: 'Escolher caderno', wide: true,
+          body: `<div class="form"><label>Caderno<input type="text" id="cd-f" placeholder="filtrar por título, ramo ou conteúdo…"></label><div class="pick" id="cd-list"></div></div>`,
+          buttons: [{ label: 'Cancelar' }],
+          onOpen: bb => {
+            const des = () => {
+              const f = norm($('#cd-f', bb).value);
+              $('#cd-list', bb).innerHTML = cads.filter(c => !f || norm(c.titulo + ' ' + ((ramoById(c.ramo) || {}).nome || '') + ' ' + plain(c.conteudo).slice(0, 4000)).includes(f)).slice(0, 200)
+                .map(c => `<div data-id="${c.id}"><b>${esc(c.titulo)}</b><small>${esc((ramoById(c.ramo) || {}).nome || 'sem ramo')} — ${esc(plain(c.conteudo).slice(0, 90) || 'caderno vazio')}</small></div>`).join('') || '<div class="empty">Nenhum caderno</div>';
+              $$('#cd-list div[data-id]', bb).forEach(d => d.onclick = () => { const c = cadById(d.dataset.id); closeModal(); vincular({ cadId: c.id }, `Caderno “${c.titulo}”`); });
+            };
+            $('#cd-f', bb).oninput = des; des();
+          },
+        });
+      };
+    },
+  });
+}
+function modalRefManual(lei, art) {
+  openModal({
+    title: 'Acrescentar referência',
+    body: `<div class="form"><p class="hint" style="margin:0">O programa lê o texto do artigo e reconhece sozinho as remissões a outros artigos da mesma lei e a leis do acervo. Aqui você acrescenta o que ele não detectou — inclusive remissões a artigos de outras leis — e o “×” em cada etiqueta remove o que ele reconheceu por engano.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn pri" id="rf-art">Escolher um artigo</button><button class="btn" id="rf-lei">Referir uma lei inteira</button></div></div>`,
+    buttons: [{ label: 'Cancelar' }],
+    onOpen: b => {
+      $('#rf-art', b).onclick = () => { closeModal(); pickArtigo(r => { refsMan(art).push({ id: uid(), leiId: r.lei.id, artId: r.art.id }); art.atualizadoEm = new Date().toISOString(); save(); renderVinculos(lei, art); toast('Referência acrescentada', 'ok'); }); };
+      $('#rf-lei', b).onclick = () => {
+        closeModal();
+        openModal({
+          title: 'Referir uma lei inteira', wide: true,
+          body: `<div class="form"><label>Lei<input type="text" id="rf-f" placeholder="filtrar por sigla, epígrafe ou nome…"></label><div class="pick" id="rf-list"></div></div>`,
+          buttons: [{ label: 'Cancelar' }],
+          onOpen: bb => {
+            const des = () => {
+              const f = norm($('#rf-f', bb).value);
+              $('#rf-list', bb).innerHTML = S.leis.filter(l => !f || norm(l.sigla + ' ' + l.nome + ' ' + l.epigrafe).includes(f)).slice(0, 200).map(l => `<div data-id="${l.id}"><b>${esc(l.sigla)}</b><small>${esc(l.epigrafe)} — ${esc(l.nome)}</small></div>`).join('') || '<div class="empty">Nenhuma lei</div>';
+              $$('#rf-list div[data-id]', bb).forEach(d => d.onclick = () => { refsMan(art).push({ id: uid(), leiId: d.dataset.id, artId: null }); art.atualizadoEm = new Date().toISOString(); save(); closeModal(); renderVinculos(lei, art); toast('Referência acrescentada', 'ok'); });
+            };
+            $('#rf-f', bb).oninput = des; des();
+          },
+        });
+      };
+    },
+  });
+}
+</script>
+<script>
+/* =====================================================================
    PARTE 5 — modo móvel, PWA, extensão do Chrome, sincronização entre abas
    ===================================================================== */
 const BUILD = window.VM_BUILD || 'desktop';
@@ -4023,9 +4355,10 @@ function mesclarDentro(destino, origem) {
       const e2 = ex.itens.find(x => x.id === it.id);
       if (!e2) { ex.itens.push(it); continue; }
       if (it.tipo !== 'art') continue;
-      if (maisNovo(it.atualizadoEm, e2.atualizadoEm)) { const notasE = e2.notasList || []; Object.assign(e2, it); e2.notasList = it.notasList || notasE; }
+      if (maisNovo(it.atualizadoEm, e2.atualizadoEm)) { const notasE = e2.notasList || [], jurisE = e2.jurisList || []; Object.assign(e2, it); e2.notasList = it.notasList || notasE; e2.jurisList = it.jurisList || jurisE; }
       for (const n of (it.notasList || [])) { const en = (e2.notasList = e2.notasList || []).find(x => x.id === n.id); if (!en) e2.notasList.push(n); else if (maisNovo(n.atualizadoEm, en.atualizadoEm)) Object.assign(en, n); }
-      if (it.jurisDoc && maisNovo(it.jurisDoc.atualizadoEm, (e2.jurisDoc || {}).atualizadoEm)) e2.jurisDoc = it.jurisDoc;
+      for (const j of (it.jurisList || [])) { const ej = (e2.jurisList = e2.jurisList || []).find(x => x.id === j.id); if (!ej) e2.jurisList.push(j); else if (maisNovo(j.atualizadoEm, ej.atualizadoEm)) Object.assign(ej, j); }
+      for (const r of (it.refsMan || [])) if (!(e2.refsMan = e2.refsMan || []).some(x => x.id === r.id)) e2.refsMan.push(r);
     }
   }
   return destino;
@@ -4270,7 +4603,7 @@ function renderRevisao() {
   const c = r.deck[r.i]; const crumbs = crumbsDe(c.lei, c.art);
   V.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center"><h2 class="vt">Revisão</h2><span class="mini">${r.i + 1} / ${r.deck.length} · acertos: ${r.acertos}</span></div>
     <div class="card flash"><div class="lei">${esc(c.lei.sigla)} — ${esc(c.lei.nome)}</div><div class="num">${esc(artLabel(c.art))}</div><div class="cr">${crumbs.map(esc).join(' › ')}${c.art.tags.length ? '<br>' + c.art.tags.map(esc).join(' · ') : ''}</div>
-      ${r.show ? `<div class="body">${c.art.texto}${temNota(c.art) ? `<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line2)">${notasHtml(c.art)}</div>` : ''}${temJuris(c.art) ? `<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line2)"><b style="font-family:var(--ui);font-size:12px;text-transform:uppercase;color:var(--txt3)">Jurisprudência</b>${jurisDoc(c.art).conteudo}</div>` : ''}</div>` : '<div class="body" style="text-align:center;color:var(--txt3)">Tente lembrar o conteúdo e depois revele.</div>'}
+      ${r.show ? `<div class="body">${c.art.texto}${temNota(c.art) ? `<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line2)">${notasHtml(c.art)}</div>` : ''}${temJuris(c.art) ? `<div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--line2)"><b style="font-family:var(--ui);font-size:12px;text-transform:uppercase;color:var(--txt3)">Jurisprudência</b>${jurisHtml(c.art)}</div>` : ''}</div>` : '<div class="body" style="text-align:center;color:var(--txt3)">Tente lembrar o conteúdo e depois revele.</div>'}
       <div class="acts">${r.show ? `<button class="btn" id="rv-err">Errei</button><button class="btn pri" id="rv-ok">Acertei · próximo</button>` : `<button class="btn pri" id="rv-show">Revelar</button>`}<button class="btn ghost" id="rv-open">Abrir artigo</button><button class="btn ghost" id="rv-stop">Encerrar</button></div></div>`;
   const next = ok => { if (ok) r.acertos++; r.i++; r.show = false; if (r.i >= r.deck.length) { toast(`Revisão concluída: ${r.acertos}/${r.deck.length}`, 'ok'); UI.rev = null; } renderRevisao(); };
   if ($('#rv-show')) $('#rv-show').onclick = () => { r.show = true; renderRevisao(); };
