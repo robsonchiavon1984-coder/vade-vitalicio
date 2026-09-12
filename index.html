@@ -1113,10 +1113,18 @@ let S = null;            // estado global
 let fileHandle = null;   // File System Access API (arquivo vinculado)
 let useLS = false;
 async function loadState() {
-  try { await DB.open(); const st = await DB.get('state'); fileHandle = (await DB.get('fileHandle')) || null; if (st) return migrate(st); }
-  catch (e) { useLS = true; try { const st = JSON.parse(localStorage.getItem('vademecum-state')); if (st) return migrate(st); } catch (_) {} }
-  return migrate(seedState());
+  let base = null;
+  try { await DB.open(); const st = await DB.get('state'); fileHandle = (await DB.get('fileHandle')) || null; if (st) base = migrate(st); }
+  catch (e) { useLS = true; try { const st = JSON.parse(localStorage.getItem('vademecum-state')); if (st) base = migrate(st); } catch (_) {} }
+  // recupera o que ficou pendente se a aba foi fechada antes de a gravação terminar
+  const em = lerEmergencia();
+  if (em && em.estado && em.rev >= ((base && base.meta && base.meta.rev) || 0)) {
+    try { const rec = migrate(em.estado); if (base) { rec.meta.rev = Math.max(rec.meta.rev || 0, (base.meta || {}).rev || 0); } base = rec; emergenciaAplicada = true; } catch (_) {}
+  }
+  limparEmergencia();
+  return base || migrate(seedState());
 }
+let emergenciaAplicada = false;
 const saveNow = async () => {
   const el = $('#save-state'); el.textContent = 'salvando…';
   try {
@@ -1135,11 +1143,21 @@ const saveNow = async () => {
     S.meta.rev = (S.meta.rev || 0) + 1;
     if (useLS) localStorage.setItem('vademecum-state', JSON.stringify(S)); else await DB.set('state', S);
     if (fileHandle) { try { if ((await fileHandle.queryPermission({ mode: 'readwrite' })) === 'granted') { const w = await fileHandle.createWritable(); await w.write(JSON.stringify(sanitizeState(S))); await w.close(); } } catch (e) { console.warn('arquivo vinculado', e); } }
+    limparEmergencia();
     el.textContent = 'salvo ' + new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
     if (typeof avisarOutrasAbas === 'function') avisarOutrasAbas();
   } catch (e) { el.textContent = 'ERRO ao salvar'; console.error(e); toast('Erro ao salvar os dados: ' + e, 'err'); }
 };
 const save = debounce(saveNow, 500);
+/* Rede de segurança: IndexedDB grava de forma assíncrona e uma gravação iniciada
+   no fechamento da aba pode não terminar. Antes de sair, uma cópia é escrita em
+   localStorage (gravação síncrona) e recuperada na abertura seguinte. */
+const EMERG = 'vademecum-emergencia';
+function salvarEmergencia() {
+  try { localStorage.setItem(EMERG, JSON.stringify({ ts: Date.now(), rev: (S.meta || {}).rev || 0, estado: S })); } catch (_) { try { localStorage.removeItem(EMERG); } catch (__) {} }
+}
+function limparEmergencia() { try { localStorage.removeItem(EMERG); } catch (_) {} }
+function lerEmergencia() { try { const v = localStorage.getItem(EMERG); return v ? JSON.parse(v) : null; } catch (_) { return null; } }
 
 /* ---------------- helpers de domínio ---------------- */
 const leiById = id => S.leis.find(l => l.id === id);
@@ -1785,7 +1803,7 @@ function renderCadTree() {
   $$('[data-newin]', cont).forEach(b => b.onclick = () => modalCaderno({ ramo: b.dataset.newin }));
   const act = $('.crow.active', cont); if (act) act.scrollIntoView({ block: 'nearest' });
 }
-function openCad(id) { const c = cadById(id); if (!c) return; UI.cadId = id; if (c.parentId) UI.openCads.add(c.parentId); if (c.tipo === 'pasta') UI.openCads.add(id); if (S.prefs.ramoAtivo && c.ramo !== S.prefs.ramoAtivo) { S.prefs.ramoAtivo = null; renderRamos(); } S.prefs.ultimoCad = id; save(); if (UI.view !== 'cadernos') showView('cadernos'); else { renderCadReader(); renderTree(); } closeDrawer(); }
+function openCad(id) { const c = cadById(id); if (!c) return; flushDirty(); UI.cadId = id; if (c.parentId) UI.openCads.add(c.parentId); if (c.tipo === 'pasta') UI.openCads.add(id); if (S.prefs.ramoAtivo && c.ramo !== S.prefs.ramoAtivo) { S.prefs.ramoAtivo = null; renderRamos(); } S.prefs.ultimoCad = id; save(); if (UI.view !== 'cadernos') showView('cadernos'); else { renderCadReader(); renderTree(); } closeDrawer(); }
 function renderCadReader() {
   const R = $('#creader'); const c = UI.cadId ? cadById(UI.cadId) : null;
   if (!c) { UI.cadId = null; R.innerHTML = `<div class="card p" style="margin-top:30px;text-align:center"><h2 class="vt" style="font-size:20px">Cadernos de estudo</h2><p class="sub">Guarde aqui artigos científicos, apostilas, resumos e fichamentos, organizados por ramo do direito e por pastas em árvore. Cada caderno tem editor completo, temas, estrelas, correlações com artigos de lei e a aba IA.</p><div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap"><button class="btn pri" id="c-novo">${I.plus} Novo caderno</button><button class="btn" id="c-pasta">Nova pasta</button></div></div>`; $('#c-novo').onclick = () => modalCaderno({ tipo: 'caderno' }); $('#c-pasta').onclick = () => modalCaderno({ tipo: 'pasta' }); return; }
@@ -1804,9 +1822,9 @@ function renderCadReader() {
   bindCadHead(c); $$('[data-cad]', R).forEach(x => x.onclick = () => openCad(x.dataset.cad));
   $$('.stars button', R).forEach(b => b.onclick = () => { const n = +b.dataset.star; c.estrelas = c.estrelas === n ? 0 : n; save(); $$('.stars button', R).forEach(x => x.classList.toggle('on', +x.dataset.star <= c.estrelas)); renderTree(); });
   $('#c-fav').onclick = () => { c.favorito = !c.favorito; save(); renderCadReader(); };
-  renderCadTags(c); $$('[data-ctab]', R).forEach(t => t.onclick = () => { UI.cadTab = t.dataset.ctab; renderCadReader(); });
+  renderCadTags(c); $$('[data-ctab]', R).forEach(t => t.onclick = () => { flushDirty(); UI.cadTab = t.dataset.ctab; renderCadReader(); });
   const P = $('#cpane');
-  if (tab === 'conteudo') { renderDocEditor(P, c); } else if (tab === 'links') {
+  if (tab === 'conteudo') { renderDocEditor(P, c, { titulo: c.titulo, aoSalvar: () => renderTree() }); } else if (tab === 'links') {
     const row = (l, a, obs, i) => `<div class="linkrow go" data-go="${l.id}:${a.id}"><span class="ico" style="background:${(ramoById(l.ramos[0]) || {}).cor || 'var(--txt3)'}">${esc(l.sigla.slice(0, 4))}</span><div class="t"><b>${esc(l.sigla)}, ${esc(artLabel(a))} <span class="mini" style="font-weight:400">— ${esc(l.nome)}</span></b><small>${esc(plain(a.texto).slice(0, 140))}</small>${obs ? `<em>${esc(obs)}</em>` : ''}</div><button class="ibtn" data-del="${i}" title="Remover">${I.trash}</button></div>`;
     P.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><div><b>Artigos de lei relacionados a este caderno</b><div class="mini">Clique para abrir o artigo; ele também mostrará este caderno em "Referenciado por".</div></div><button class="btn pri sm" id="clk-add">${I.plus} Vincular artigo</button></div><div class="linklist">${c.links.map((k, i) => { const r2 = findArt(k.leiId, k.artId); return r2 ? row(r2.lei, r2.art, k.obs, i) : ''; }).join('') || '<div class="empty">Nenhum vínculo.</div>'}</div>`;
     $('#clk-add').onclick = () => pickArtigo(r2 => { c.links.push({ leiId: r2.lei.id, artId: r2.art.id, obs: '' }); save(); renderCadReader(); });
@@ -1815,7 +1833,7 @@ function renderCadReader() {
     if (citam.length) P.insertAdjacentHTML('beforeend', `<div style="margin:18px 0 8px"><b>Artigos que citam este caderno</b><div class="mini">Correlações criadas na tela da legislação.</div></div><div class="linklist">${citam.map(x => `<div class="linkrow go2" data-go2="${x.lei.id}:${x.art.id}"><span class="ico" style="background:${(ramoById(x.lei.ramos[0]) || {}).cor || 'var(--txt3)'}">${esc(x.lei.sigla.slice(0, 4))}</span><div class="t"><b>${esc(x.lei.sigla)}, ${esc(artLabel(x.art))}</b><small>${esc(plain(x.art.texto).slice(0, 140))}</small>${x.obs ? `<em>${esc(x.obs)}</em>` : ''}</div></div>`).join('')}</div>`);
     $$('.linkrow.go2', P).forEach(x => x.onclick = () => { const [l, a] = x.dataset.go2.split(':'); openArt(l, a); });
     $$('[data-del]', P).forEach(b => b.onclick = e => { e.stopPropagation(); c.links.splice(+b.dataset.del, 1); save(); renderCadReader(); });
-  } else renderPaneIA(P, { tipo: 'caderno', obj: c, rotulo: `o caderno "${c.titulo}"`, contexto: () => contextoCaderno(c), inserir: html => { c.conteudo = (c.conteudo || '') + '<hr>' + html; c.atualizadoEm = new Date().toISOString(); save(); } });
+  } else renderPaneIA(P, { tipo: 'caderno', obj: c, rotulo: `o caderno "${c.titulo}"`, contexto: () => contextoCaderno(c), inserir: html => { if (!(typeof window._docInserir === 'function' && window._docInserir(c, '<hr>' + html))) { c.conteudo = (c.conteudo || '') + '<hr>' + html; c.atualizadoEm = new Date().toISOString(); save(); } renderTree(); } });
 }
 function bindCadHead(c) {
   const q = s => $(s); if (q('#c-file')) q('#c-file').onclick = () => { const fi = $('#file-cad'); fi.dataset.cad = c.id; fi.click(); };
@@ -2180,9 +2198,37 @@ function renderDocEditor(P, c, opts = {}) {
     if (s && s.rangeCount && ed.contains(s.anchorNode)) { const r = s.getRangeAt(0).cloneRange(); r.collapse(true); const rect = r.getClientRects()[0] || (r.startContainer.parentElement && r.startContainer.parentElement.getBoundingClientRect()); if (rect) { const rel = rect.top - ed.getBoundingClientRect().top; pag = Math.max(1, Math.floor((rel / calcZoom()) / cm2px(alt() - D.marg[0] - D.marg[2])) + 1); } }
     $('#docstatus', P).innerHTML = `<span>${telaCheiaTexto() ? (D.modo === 'continuo' ? 'Texto contínuo (a página vale na impressão)' : 'Ajustado à tela (a página vale na impressão)') : `Página ${pag} de ${n}`}</span><span>${pal.toLocaleString('pt-BR')} palavras · ${t.length.toLocaleString('pt-BR')} caracteres</span><span>${esc(D.formato)} ${D.orient} · margens ${numBR(D.marg[0])}/${numBR(D.marg[1])}/${numBR(D.marg[2])}/${numBR(D.marg[3])} cm</span><span id="d-save">${txt || 'salvo'}</span>`;
   }
-  const gravarJa = () => { if (!ed.isConnected || c.conteudo === ed.innerHTML) return false; c.conteudo = ed.innerHTML; c.atualizadoEm = new Date().toISOString(); return true; };
+  /* o editor só grava o que ele mesmo escreveu: se o conteúdo mudou por fora
+     (resposta da IA, importação, outra aba), não sobrescreve o que chegou */
+  let ultimoHtml = c.conteudo;
+  const mudouFora = () => c.conteudo !== ultimoHtml;
+  const gravarJa = () => {
+    if (!ed.isConnected || c.conteudo === ed.innerHTML) return false;
+    if (mudouFora()) return false;
+    c.conteudo = ed.innerHTML; ultimoHtml = c.conteudo; c.atualizadoEm = new Date().toISOString(); return true;
+  };
   window._docFlush = () => { if (gravarJa()) { if (opts.aoSalvar) opts.aoSalvar(); return true; } return false; };
-  const persist = debounce(() => { if (!ed.isConnected) { if (c.conteudo !== ed.innerHTML) { c.conteudo = ed.innerHTML; c.atualizadoEm = new Date().toISOString(); save(); } return; } gravarJa(); save(); status('salvo'); indice(); if (opts.aoSalvar) opts.aoSalvar(); }, 600);
+  /* permite que a IA (e qualquer outro ponto do programa) escreva no documento aberto
+     sem disputar com o editor: o texto entra no próprio editor e é gravado na hora */
+  window._docInserir = (obj, html) => {
+    if (obj !== c || !ed.isConnected) return false;
+    ed.insertAdjacentHTML('beforeend', html);
+    c.conteudo = ed.innerHTML; ultimoHtml = c.conteudo; c.atualizadoEm = new Date().toISOString();
+    save(); status('salvo'); indice(); if (opts.aoSalvar) opts.aoSalvar();
+    ed.scrollTop = ed.scrollHeight;
+    return true;
+  };
+  const persist = debounce(() => {
+    if (!ed.isConnected) { if (!mudouFora() && c.conteudo !== ed.innerHTML) { c.conteudo = ed.innerHTML; ultimoHtml = c.conteudo; c.atualizadoEm = new Date().toISOString(); save(); } return; }
+    if (mudouFora()) {
+      // algo escreveu no documento enquanto ele estava aberto: incorpora o acréscimo em vez de descartá-lo
+      const fora = c.conteudo;
+      if (ultimoHtml && fora.startsWith(ultimoHtml)) ed.insertAdjacentHTML('beforeend', fora.slice(ultimoHtml.length));
+      else if (fora !== ed.innerHTML) ed.innerHTML = fora;   // substituição feita por fora: vale a versão de fora
+      ultimoHtml = ed.innerHTML; c.conteudo = ultimoHtml;
+    }
+    gravarJa(); save(); status('salvo'); indice(); if (opts.aoSalvar) opts.aoSalvar();
+  }, 600);
   /* ---------- estado da barra ---------- */
   function atualizarBarra() {
     if (edAtivo() !== ed) return;
@@ -2486,7 +2532,7 @@ const leiNotasDoc = l => { if (!l.notasDoc) l.notasDoc = { conteudo: '', doc: do
 function inserirNaNota(art, html) {
   const ns = notasDe(art); let n = ns.find(x => x.id === UI.notaId) || ns[0];
   if (!n) { n = novaNota({ titulo: 'Resposta da IA' }); art.notasList.push(n); }
-  n.conteudo = (n.conteudo || '') + html; n.atualizadoEm = new Date().toISOString();
+  if (!(typeof window._docInserir === 'function' && window._docInserir(n, html))) { n.conteudo = (n.conteudo || '') + html; n.atualizadoEm = new Date().toISOString(); }
   art.atualizadoEm = new Date().toISOString(); save();
 }
 
@@ -5004,8 +5050,8 @@ async function init() {
     if (e.altKey && (e.key === 'ArrowLeft' || e.key === 'ArrowRight') && UI.view === 'leitura' && UI.artId) { e.preventDefault(); const v = vizinho(e.key === 'ArrowLeft' ? -1 : 1); if (v) openArt(UI.leiId, v.id); }
   });
   document.addEventListener('click', e => { const a = e.target.closest('a[data-ref]'); if (a && !a.closest('.edit')) { e.preventDefault(); const [l, ar] = a.dataset.ref.split(':'); openArt(l, ar); } });
-  window.addEventListener('beforeunload', () => { if (UI.dirty) salvarTexto(true); if (typeof window._docFlush === 'function') window._docFlush(); try { saveNow(); } catch (_) {} });
-  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') { if (UI.dirty) salvarTexto(true); if (typeof window._docFlush === 'function' && window._docFlush()) saveNow(); } });
+  window.addEventListener('beforeunload', () => { if (UI.dirty) salvarTexto(true); if (typeof window._docFlush === 'function') window._docFlush(); salvarEmergencia(); try { saveNow(); } catch (_) {} });
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') { if (UI.dirty) salvarTexto(true); if (typeof window._docFlush === 'function') window._docFlush(); salvarEmergencia(); saveNow(); } });
   initBuscaGlobal();
   initMobile();
 }
