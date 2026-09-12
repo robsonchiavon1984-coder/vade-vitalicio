@@ -748,6 +748,43 @@ html.m .strow .acts,html.m .strun .acts{order:3;margin-left:auto}
 .tj-row{display:flex;gap:7px;align-items:center}
 .tj-row .inp{padding:5px 8px;font-size:12.5px}
 .tj-vinc{display:flex;align-items:center;gap:4px;font-size:11.5px;color:var(--txt2);white-space:nowrap;cursor:pointer;font-weight:500}
+/* ---------- parte 11: pesquisa permanente ---------- */
+.gsbox{position:relative;flex:1;max-width:560px;min-width:150px;display:flex;align-items:center;gap:6px;border:1px solid var(--gb2);background:var(--glass3);border-radius:12px;padding:0 8px;transition:.15s}
+.gsbox:focus-within{border-color:var(--pri);box-shadow:0 0 0 3px var(--pri-soft);background:var(--glass-hi)}
+.gsbox .lupa{width:15px;height:15px;stroke:var(--txt3);fill:none;stroke-width:2;stroke-linecap:round;flex:none}
+.gsbox input{flex:1;min-width:0;border:0;background:transparent;outline:none;font-family:var(--ui);font-size:13px;color:var(--txt);padding:7px 0}
+.gsbox input::-webkit-search-cancel-button{display:none}
+.gsbox #gs-x{opacity:0;font-size:12px;color:var(--txt3);flex:none}
+.gsbox:focus-within #gs-x{opacity:1}
+.gsp{position:absolute;top:calc(100% + 7px);left:-60px;right:-20px;z-index:60;background:linear-gradient(var(--glass-hi),var(--glass-hi)),var(--bg);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border:1px solid var(--gb);border-radius:16px;box-shadow:var(--shadow2);overflow:hidden;animation:vpin .16s ease;max-height:min(620px,72vh);display:flex;flex-direction:column}
+.gsp-head{padding:9px 14px;border-bottom:1px solid var(--line);display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;background:var(--glass2)}
+.gsp-head b{font-size:12.5px}
+.gsp-head span{font-size:11.5px;color:var(--txt3)}
+.gsp-dica{padding:14px 16px;font-size:12.5px;line-height:1.55;color:var(--txt2)}
+.gsp-dica b{display:block;color:var(--txt);font-size:13px;margin-bottom:3px}
+.gsp-dica span b{display:inline;font-size:inherit;margin:0}
+.gsp-list{overflow:auto;padding:4px}
+.gsp-i{padding:8px 11px;border-radius:11px;cursor:pointer;border-bottom:1px solid var(--line)}
+.gsp-i:last-child{border-bottom:0}
+.gsp-i:hover,.gsp-i.sel{background:var(--glass-hi);box-shadow:var(--shadow)}
+.gsp-t{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-bottom:3px}
+.gsp-t b{font-size:13px}
+.gsp-t .chip.tp{font-size:10px;text-transform:uppercase;letter-spacing:.4px}
+.gsp-s{font-size:12.5px;line-height:1.5;color:var(--txt2);font-family:var(--read-font);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.gsp-s mark{background:var(--pri-soft);color:var(--pri-txt);border-radius:3px;padding:0 1px;font-weight:600}
+.gsp-foot{padding:7px 14px;border-top:1px solid var(--line);display:flex;align-items:center;gap:10px;font-size:11px;color:var(--txt3);background:var(--glass2)}
+.gsp-foot>span{flex:1;display:flex;align-items:center;gap:4px}
+.gsp-foot kbd{font-family:ui-monospace,Menlo,monospace;font-size:10px;border:1px solid var(--line2);border-radius:4px;padding:0 4px;background:var(--glass3)}
+.cmp-cab{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding-bottom:8px;border-bottom:1px solid var(--line);margin-bottom:8px}
+.cmp-leg{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--txt3);margin-bottom:9px}
+.cmp-leg i{font-style:normal;margin-right:3px}
+.cmp-txt{font-family:var(--read-font);font-size:14.5px;line-height:1.75;max-height:48vh;overflow:auto;padding:12px 14px;border:1px solid var(--gb2);border-radius:12px;background:var(--glass2)}
+.cmp-txt .ctx{color:var(--txt3);opacity:.65}
+.cmp-leg i.ctx{font-style:normal;color:var(--txt3)}
+.df.del{background:rgba(239,68,68,.16);color:var(--err);border-radius:3px;padding:0 2px;text-decoration:line-through}
+.df.add{background:rgba(34,197,94,.18);color:var(--ok);border-radius:3px;padding:0 2px}
+html.m .gsbox{display:none}
+@media (max-width:1000px){.gsbox{max-width:none}.gsbox input{font-size:12.5px}}
 @media (max-width:1100px){.app,.app.rail-collapsed{grid-template-columns:66px 290px 1fr}.rail .brand span,.rail .navbtn span,.rail .sec,.rail .ramos,.navbtn .kbd,.foot .lbl{display:none}.navbtn{justify-content:center}}
 /* ---------- modo móvel (html.m) ---------- */
 .tabbar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--glass3);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border-top:1px solid var(--gb);padding:6px 4px calc(6px + env(safe-area-inset-bottom));justify-content:space-around;gap:2px}
@@ -802,7 +839,7 @@ html.m .sheet{display:flex;flex-direction:column;gap:4px}
 .sheet button:hover,.sheet button:active{background:var(--glass2)}
 .sheet button svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .sheet button .badge{margin-left:auto;background:var(--err);color:#fff;font-size:10px;font-weight:700;border-radius:99px;padding:1px 7px}
-@media print{body{overflow:visible;background:#fff}body:before{display:none}.rail,.tree,.topbar,.toolbar,.palette,.tabs,.artnav,.savebar,.rhead .acts{display:none!important}.app{display:block;padding:0}.content{overflow:visible}.reader{padding:0}.edit{font-size:12pt}.card,.main{background:#fff;border:0;box-shadow:none}}
+@media print{body{overflow:visible;background:#fff}body:before{display:none}.rail,.tree,.topbar,.gsp,.toolbar,.palette,.tabs,.artnav,.savebar,.rhead .acts{display:none!important}.app{display:block;padding:0}.content{overflow:visible}.reader{padding:0}.edit{font-size:12pt}.card,.main{background:#fff;border:0;box-shadow:none}}
 </style>
 </head>
 <body>
@@ -846,6 +883,12 @@ html.m .sheet{display:flex;flex-direction:column;gap:4px}
     <div class="topbar">
       <button class="ibtn" id="btn-tree" title="Mostrar/ocultar lista"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></svg></button>
       <h1 id="topbar-title">Legislação</h1>
+      <div class="gsbox">
+        <svg class="lupa" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="gsearch" placeholder="Pesquisar no acervo ou colar um trecho para identificar…" autocomplete="off" spellcheck="false">
+        <button class="ibtn" id="gs-x" title="Limpar">✕</button>
+        <div class="gsp" id="gspanel" hidden></div>
+      </div>
       <button class="btn sm ghost" id="btn-font-minus" title="Diminuir fonte">A−</button>
       <button class="btn sm ghost" id="btn-font-plus" title="Aumentar fonte">A+</button>
       <button class="btn sm ghost" id="btn-fonte" title="Alternar fonte de leitura">Serif</button>
@@ -1163,7 +1206,7 @@ function parseTexto(txt) {
 </script>
 <script>
 /* ================= UI: estado, ícones, utilitários ================= */
-const UI = { view: 'leitura', leiId: null, artId: null, tab: 'leitura', dirty: false, openLeis: new Set(), openGrps: new Set(), treeFilter: '', busca: { q: '', modo: 'tudo', ramo: '', lei: '', estrelas: 0 }, rev: null, favSeg: 'fav', notaId: null, jurisId: null, vprev: null, reordenar: false, cadId: null, openCads: new Set(), cadTab: 'conteudo', leiTab: 'inicio', leiSeg: 'sum', conTab: 'certames', cronoId: null, cronoSeg: 'painel', cronoOpen: new Set(), temaModo: 'abc', temaRamo: '', temaF: '', calY: new Date().getFullYear(), calM: new Date().getMonth() };
+const UI = { view: 'leitura', leiId: null, artId: null, tab: 'leitura', dirty: false, openLeis: new Set(), openGrps: new Set(), treeFilter: '', busca: { q: '', modo: 'tudo', ramo: '', lei: '', estrelas: 0 }, rev: null, favSeg: 'fav', notaId: null, jurisId: null, vprev: null, reordenar: false, cadId: null, openCads: new Set(), cadTab: 'conteudo', leiTab: 'inicio', leiSeg: 'sum', conTab: 'certames', cronoId: null, cronoSeg: 'painel', cronoOpen: new Set(), gRes: [], gSel: -1, gQw: null, temaModo: 'abc', temaRamo: '', temaF: '', calY: new Date().getFullYear(), calM: new Date().getMonth() };
 const I = {
   chev: '<svg class="chev" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>',
   star: '★', note: '<svg class="nt" viewBox="0 0 24 24"><path d="M4 4h12l4 4v12H4z"/><path d="M8 12h8M8 16h5"/></svg>',
@@ -4302,6 +4345,197 @@ function modalRefManual(lei, art) {
 </script>
 <script>
 /* =====================================================================
+   PARTE 11 — pesquisa permanente no topo: procura em todo o acervo e
+   identifica trechos colados (texto de lei, julgado, nota ou caderno)
+   ===================================================================== */
+const normG = s => norm(s).replace(/[^a-z0-9]+/g, ' ').trim();
+function palavrasDe(txt) {
+  const o = [], w = [];
+  // textos copiados do Planalto costumam vir sem espaço depois de ":", ";" e ")" — separa para não colar duas palavras
+  const bruto = String(txt || '').replace(/([:;.,)\]])(?=[A-Za-zÀ-ÿ0-9])/g, '$1 ');
+  for (const p of bruto.split(/\s+/)) { const n = normG(p); if (n) { o.push(p); w.push(n.replace(/ /g, '')); } }
+  return { o, w };
+}
+function shingles(ws, n = 3) { const s = new Set(); for (let i = 0; i + n <= ws.length; i++) s.add(ws.slice(i, i + n).join(' ')); return s; }
+
+/* ---------- índice do acervo ---------- */
+let GIDX = null, GIDX_REV = -1, GIDX_N = 0;
+function gIndice(forcar) {
+  if (GIDX && !forcar && GIDX_REV === (S.meta.rev || 0)) return GIDX;
+  const ix = [];
+  const add = (o) => { const p = palavrasDe(o.txt); if (!p.w.length) return; ix.push(Object.assign(o, { o: p.o, w: p.w, n: p.w.join(' ') })); };
+  for (const l of S.leis) {
+    add({ k: 'lei', leiId: l.id, tipo: 'Lei', rot: l.epigrafe, sub: l.sigla + ' — ' + l.nome, txt: `${l.epigrafe} ${l.nome} ${l.sigla} ${l.ementa || ''}` });
+    for (const a of artigosDe(l)) {
+      add({ k: 'art', leiId: l.id, artId: a.id, tipo: 'Artigo', rot: `${l.sigla}, ${artLabel(a)}`, sub: l.epigrafe, txt: plain(a.texto) });
+      for (const nt of notasDe(a)) if (plain(nt.conteudo).trim()) add({ k: 'nota', leiId: l.id, artId: a.id, subId: nt.id, tipo: 'Nota', rot: nt.titulo || 'Nota', sub: `${l.sigla}, ${artLabel(a)}`, txt: plain(nt.conteudo) });
+      for (const j of jurisDe(a)) if (plain(j.conteudo).trim()) add({ k: 'juris', leiId: l.id, artId: a.id, subId: j.id, tipo: tipoJurisAbrev(j.tipo), cor: tipoJurisCor(j.tipo), rot: j.titulo || 'Julgado', sub: `${l.sigla}, ${artLabel(a)}`, txt: plain(j.conteudo) });
+    }
+    if (l.notasDoc && plain(l.notasDoc.conteudo).trim()) add({ k: 'leinota', leiId: l.id, tipo: 'Nota da lei', rot: 'Notas', sub: l.epigrafe, txt: plain(l.notasDoc.conteudo) });
+  }
+  for (const c of S.cadernos) if (c.tipo === 'caderno' && plain(c.conteudo).trim()) add({ k: 'cad', cadId: c.id, tipo: 'Caderno', rot: c.titulo, sub: (ramoById(c.ramo) || {}).nome || 'sem ramo', txt: plain(c.conteudo) });
+  GIDX = ix; GIDX_REV = S.meta.rev || 0; GIDX_N = ix.reduce((s, d) => s + d.w.length, 0);
+  return GIDX;
+}
+
+/* ---------- busca ---------- */
+function gProcurar(q) {
+  const qp = palavrasDe(q), qw = qp.w;
+  if (!qw.length) return { modo: null, res: [] };
+  const ix = gIndice();
+  const identificar = qw.length >= 6;
+  if (!identificar) {
+    const alvo = qw.join(' '), res = [];
+    for (const d of ix) {
+      const i = d.n.indexOf(alvo);
+      if (i < 0) continue;
+      const pos = d.n.slice(0, i).split(' ').length - 1;
+      res.push({ d, cob: 1, exato: true, ini: Math.max(0, pos), fim: Math.min(d.w.length - 1, pos + qw.length - 1), marcadas: new Set(Array.from({ length: qw.length }, (_, k) => pos + k)) });
+      if (res.length > 400) break;
+    }
+    res.sort((a, b) => ordemTipo(a.d.k) - ordemTipo(b.d.k) || a.d.w.length - b.d.w.length);
+    return { modo: 'texto', res: res.slice(0, 40), total: res.length };
+  }
+  const qs = shingles(qw);
+  if (!qs.size) return { modo: 'texto', res: [], total: 0 };
+  const amostra = [...qs], sondas = [];
+  const passo = Math.max(1, Math.floor(amostra.length / 12));
+  for (let i = 0; i < amostra.length; i += passo) sondas.push(amostra[i]);
+  if (!sondas.includes(amostra[amostra.length - 1])) sondas.push(amostra[amostra.length - 1]);
+  let cand = ix.filter(d => sondas.some(t => d.n.includes(t)));
+  if (!cand.length) {
+    const longas = [...new Set(qw)].filter(w => w.length > 5).sort((a, b) => b.length - a.length).slice(0, 6);
+    cand = longas.length ? ix.filter(d => longas.some(w => d.n.includes(w))) : [];
+  }
+  const res = [];
+  for (const d of cand) {
+    const marcadas = new Set(); let hit = 0;
+    const ds = new Map();
+    for (let i = 0; i + 3 <= d.w.length; i++) { const t = d.w[i] + ' ' + d.w[i + 1] + ' ' + d.w[i + 2]; if (!ds.has(t)) ds.set(t, i); }
+    for (const t of qs) { const i = ds.get(t); if (i !== undefined) { hit++; marcadas.add(i); marcadas.add(i + 1); marcadas.add(i + 2); } }
+    if (!hit) continue;
+    const cob = hit / qs.size;
+    if (cob < 0.12) continue;
+    const idx = [...marcadas].sort((a, b) => a - b);
+    res.push({ d, cob, exato: d.n.includes(qw.join(' ')), ini: idx[0], fim: idx[idx.length - 1], marcadas });
+  }
+  res.sort((a, b) => b.cob - a.cob || (b.exato ? 1 : 0) - (a.exato ? 1 : 0) || ordemTipo(a.d.k) - ordemTipo(b.d.k));
+  return { modo: 'trecho', res: res.slice(0, 25), total: res.length, qw };
+}
+const ordemTipo = k => ({ art: 0, juris: 1, nota: 2, cad: 3, lei: 4, leinota: 5 }[k] ?? 9);
+function gTrecho(r, margem = 10) {
+  const d = r.d, ini = Math.max(0, r.ini - margem), fim = Math.min(d.o.length - 1, r.fim + margem);
+  let h = ini > 0 ? '… ' : '';
+  for (let i = ini; i <= fim; i++) h += (r.marcadas.has(i) ? `<mark>${esc(d.o[i])}</mark>` : esc(d.o[i])) + ' ';
+  return h.trim() + (fim < d.o.length - 1 ? ' …' : '');
+}
+
+/* ---------- painel ---------- */
+let gTimer = null;
+function gAbrir() { const p = $('#gspanel'); if (p) p.hidden = false; }
+function gFechar() { const p = $('#gspanel'); if (p) p.hidden = true; UI.gSel = -1; }
+function gRender() {
+  const q = $('#gsearch').value, p = $('#gspanel');
+  if (!q.trim()) { p.innerHTML = `<div class="gsp-dica"><b>Pesquisa em todo o acervo</b><span>Digite uma palavra ou expressão para procurar no texto das leis, nas notas, nos julgados e nos cadernos. <b>Cole um trecho inteiro</b> — de um acórdão, de uma petição, de um resumo — e o programa aponta de onde ele é e o quanto confere com o texto registrado aqui.</span></div>`; gAbrir(); return; }
+  const t0 = performance.now();
+  const { modo, res, total, qw } = gProcurar(q);
+  const ms = Math.round(performance.now() - t0);
+  UI.gRes = res; UI.gQw = qw || null; UI.gSel = -1;
+  const cab = modo === 'trecho'
+    ? `<div class="gsp-head"><b>Identificação de trecho</b><span>${res.length ? `${plural(total, 'origem', 'origens')} com alguma correspondência` : 'nenhuma correspondência no acervo'} · ${nfBR.format(GIDX_N)} palavras varridas em ${ms} ms</span></div>`
+    : `<div class="gsp-head"><b>${plural(total, 'ocorrência')}</b><span>expressão exata no acervo${total > res.length ? ` · mostrando as ${res.length} primeiras` : ''} · ${ms} ms</span></div>`;
+  const linhas = res.map((r, i) => {
+    const pc = Math.round(r.cob * 100);
+    const qual = r.exato && r.cob > .99 ? ['ok', 'confere integralmente'] : pc >= 90 ? ['ok', 'confere, com pequenas diferenças'] : pc >= 60 ? ['warn', 'confere em parte'] : ['err', 'poucas coincidências'];
+    return `<div class="gsp-i" data-i="${i}">
+      <div class="gsp-t"><span class="chip tp" ${r.d.cor ? `style="background:${r.d.cor}1f;color:${r.d.cor};border-color:transparent"` : ''}>${esc(r.d.tipo)}</span><b>${esc(r.d.rot)}</b><span class="mini">${esc(r.d.sub || '')}</span>
+        ${modo === 'trecho' ? `<span style="flex:1"></span><span class="chip ${qual[0]}" title="${qual[1]}">${pc}%</span><button class="btn sm ghost" data-cmp="${i}" title="Comparar palavra por palavra">comparar</button>` : ''}</div>
+      <div class="gsp-s">${gTrecho(r, modo === 'trecho' ? 6 : 10)}</div></div>`;
+  }).join('');
+  p.innerHTML = cab + (res.length ? `<div class="gsp-list">${linhas}</div>` : `<div class="empty">Nada encontrado. ${modo === 'trecho' ? 'O trecho pode ser de uma lei ainda não importada, ou a redação divergir bastante da registrada aqui.' : 'Tente outras palavras.'}</div>`)
+    + `<div class="gsp-foot"><span><kbd>↑</kbd><kbd>↓</kbd> percorrer · <kbd>Enter</kbd> abrir · <kbd>Esc</kbd> fechar</span><button class="btn sm ghost" id="gsp-full">Abrir na Pesquisa</button></div>`;
+  $$('.gsp-i', p).forEach(el => el.onclick = e => { if (e.target.closest('[data-cmp]')) return; gIr(+el.dataset.i); });
+  $$('[data-cmp]', p).forEach(b => b.onclick = e => { e.stopPropagation(); gComparar(+b.dataset.cmp); });
+  $('#gsp-full', p).onclick = () => { gFechar(); UI.busca = { q, modo: 'tudo', ramo: '', lei: '', estrelas: 0 }; showView('busca'); };
+  gAbrir();
+}
+function gIr(i) {
+  const r = UI.gRes[i]; if (!r) return;
+  const d = r.d; gFechar();
+  if (d.k === 'cad') { openCad(d.cadId); return; }
+  if (d.k === 'lei' || d.k === 'leinota') { openLeiHome(d.leiId); if (d.k === 'leinota') { UI.leiTab = 'notas'; renderReader(); } return; }
+  if (d.k === 'nota') UI.notaId = d.subId;
+  if (d.k === 'juris') UI.jurisId = d.subId;
+  openArt(d.leiId, d.artId, d.k === 'nota' ? 'notas' : d.k === 'juris' ? 'juris' : 'leitura');
+}
+function gSelecionar(d) {
+  const itens = $$('.gsp-i'); if (!itens.length) return;
+  UI.gSel = Math.max(0, Math.min(itens.length - 1, (UI.gSel < 0 ? -1 : UI.gSel) + d));
+  itens.forEach((x, i) => x.classList.toggle('sel', i === UI.gSel));
+  const el = itens[UI.gSel]; if (el) el.scrollIntoView({ block: 'nearest' });
+}
+
+/* ---------- comparação palavra por palavra ---------- */
+function diffPalavras(a, b) {
+  const n = a.length, m = b.length, LIM = 600;
+  if (n > LIM || m > LIM) { a = a.slice(0, LIM); b = b.slice(0, LIM); }
+  const A = a.length, B = b.length;
+  const dp = Array.from({ length: A + 1 }, () => new Uint16Array(B + 1));
+  for (let i = A - 1; i >= 0; i--) for (let j = B - 1; j >= 0; j--) dp[i][j] = normG(a[i]) === normG(b[j]) ? dp[i + 1][j + 1] + 1 : Math.max(dp[i + 1][j], dp[i][j + 1]);
+  const out = []; let i = 0, j = 0;
+  while (i < A && j < B) {
+    if (normG(a[i]) === normG(b[j])) { out.push(['=', a[i]]); i++; j++; }
+    else if (dp[i + 1][j] >= dp[i][j + 1]) { out.push(['-', a[i]]); i++; }
+    else { out.push(['+', b[j]]); j++; }
+  }
+  while (i < A) out.push(['-', a[i++]]);
+  while (j < B) out.push(['+', b[j++]]);
+  return out;
+}
+function gComparar(i) {
+  const r = UI.gRes[i]; if (!r) return;
+  const d = r.d, colado = palavrasDe($('#gsearch').value).o;
+  const ini = Math.max(0, r.ini - 3), fim = Math.min(d.o.length - 1, r.fim + 3);
+  const registrado = d.o.slice(ini, fim + 1);
+  let dif = diffPalavras(colado, registrado);
+  // as palavras do acervo que sobram antes e depois do trecho colado são contexto, não divergência
+  let i0 = 0, i1 = dif.length - 1;
+  while (i0 <= i1 && dif[i0][0] === '+') i0++;
+  while (i1 >= i0 && dif[i1][0] === '+') i1--;
+  const antes = dif.slice(0, i0).map(x => x[1]), depois = dif.slice(i1 + 1).map(x => x[1]);
+  dif = dif.slice(i0, i1 + 1);
+  const iguais = dif.filter(x => x[0] === '=').length;
+  const pc = dif.length ? Math.round(100 * iguais / dif.length) : 0;
+  const html = dif.map(([op, w]) => op === '=' ? esc(w) : `<span class="df ${op === '-' ? 'del' : 'add'}">${esc(w)}</span>`).join(' ');
+  openModal({
+    title: 'Comparação com ' + d.rot, wide: true,
+    body: `<div class="cmp"><div class="cmp-cab"><span class="chip tp">${esc(d.tipo)}</span><b>${esc(d.rot)}</b><span class="mini">${esc(d.sub || '')}</span><span style="flex:1"></span><span class="chip ${pc >= 90 ? 'ok' : pc >= 60 ? 'warn' : 'err'}">${pc}% de coincidência</span></div>
+      <div class="cmp-leg"><span><i class="df del">assim</i> só no texto que você colou</span><span><i class="df add">assim</i> só no texto registrado aqui</span><span>sem marca: idêntico</span><span><i class="ctx">assim</i> contexto do acervo, fora do trecho colado</span></div>
+      <div class="cmp-txt">${antes.length ? `<span class="ctx">${esc(antes.join(' '))} </span>` : ''}${html}${depois.length ? `<span class="ctx"> ${esc(depois.join(' '))}</span>` : ''}</div>
+      ${dif.some(x => x[0] !== '=') ? '<div class="mini" style="margin-top:8px">Diferenças de pontuação e de acentuação não são marcadas — a comparação é feita palavra a palavra, desconsiderando acentos e sinais.</div>' : '<div class="okbox" style="margin-top:8px">Os dois textos coincidem palavra por palavra.</div>'}</div>`,
+    buttons: [{ label: 'Fechar' }, { label: 'Abrir a origem', cls: 'pri', onClick: () => gIr(i) }],
+  });
+}
+
+/* ---------- ligação ---------- */
+function initBuscaGlobal() {
+  const inp = $('#gsearch'); if (!inp) return;
+  const roda = debounce(() => gRender(), 220);
+  inp.addEventListener('focus', () => { gIndice(); gRender(); });
+  inp.addEventListener('input', roda);
+  inp.addEventListener('paste', () => setTimeout(() => { gIndice(true); gRender(); }, 10));
+  inp.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { gFechar(); inp.blur(); }
+    else if (e.key === 'ArrowDown') { e.preventDefault(); gSelecionar(1); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); gSelecionar(-1); }
+    else if (e.key === 'Enter') { e.preventDefault(); if (UI.gSel >= 0) gIr(UI.gSel); else { const f = $('#gsp-full'); if (f) f.click(); } }
+  });
+  $('#gs-x').onclick = () => { inp.value = ''; inp.focus(); gRender(); };
+  document.addEventListener('mousedown', e => { if (!e.target.closest('.gsbox')) gFechar(); });
+}
+</script>
+<script>
+/* =====================================================================
    PARTE 5 — modo móvel, PWA, extensão do Chrome, sincronização entre abas
    ===================================================================== */
 const BUILD = window.VM_BUILD || 'desktop';
@@ -4765,13 +4999,14 @@ async function init() {
   const tf = $('#tree-filter'); tf.oninput = debounce(() => { UI.treeFilter = tf.value; renderTree(); }, 150); tf.onkeydown = e => { if (e.key === 'Enter' && UI.view === 'leitura') { if (irPara(tf.value)) { tf.value = ''; UI.treeFilter = ''; renderTree(); } } };
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') { closeModal(); $('#tree').classList.remove('show'); return; }
-    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); showView('busca'); return; }
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') { e.preventDefault(); const g = $('#gsearch'); if (g && g.offsetParent) { g.focus(); g.select(); } else showView('busca'); return; }
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') { e.preventDefault(); if (UI.view === 'leitura' && UI.dirty) salvarTexto(); else toast('Tudo salvo'); return; }
     if (e.altKey && (e.key === 'ArrowLeft' || e.key === 'ArrowRight') && UI.view === 'leitura' && UI.artId) { e.preventDefault(); const v = vizinho(e.key === 'ArrowLeft' ? -1 : 1); if (v) openArt(UI.leiId, v.id); }
   });
   document.addEventListener('click', e => { const a = e.target.closest('a[data-ref]'); if (a && !a.closest('.edit')) { e.preventDefault(); const [l, ar] = a.dataset.ref.split(':'); openArt(l, ar); } });
   window.addEventListener('beforeunload', () => { if (UI.dirty) salvarTexto(true); if (typeof window._docFlush === 'function') window._docFlush(); try { saveNow(); } catch (_) {} });
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') { if (UI.dirty) salvarTexto(true); if (typeof window._docFlush === 'function' && window._docFlush()) saveNow(); } });
+  initBuscaGlobal();
   initMobile();
 }
 init().catch(e => { console.error(e); document.body.innerHTML = '<pre style="padding:20px">Erro ao iniciar: ' + esc(e.stack || e) + '</pre>'; });
