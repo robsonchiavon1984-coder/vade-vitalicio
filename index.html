@@ -404,6 +404,9 @@ select option{color:#111;background:#fff}
 .docwrap{display:grid;grid-template-columns:218px 1fr;gap:12px;align-items:start}
 .docwrap.sem-nav{grid-template-columns:1fr}
 .docwrap.sem-nav .docnav{display:none}
+.docnav [data-h].aqui{background:var(--pri-soft);color:var(--pri-txt);font-weight:700}
+.folha .piscando{animation:pisca 1.2s ease}
+@keyframes pisca{0%,100%{background:transparent}20%,60%{background:var(--pri-soft)}}
 .docnav{position:sticky;top:60px;max-height:calc(100vh - 320px);overflow:auto;background:var(--glass2);border:1px solid var(--gb2);border-radius:12px;padding:10px}
 .dnh{display:flex;align-items:center;justify-content:space-between;gap:4px;margin-bottom:6px;font-size:13px}
 .dnl{display:flex;flex-direction:column;gap:1px}
@@ -2054,10 +2057,42 @@ function aplicarFonte(ed, fam) {
 }
 function aplicarBlocoEm(bs, prop, val) { if (!bs || !bs.length) return false; bs.forEach(b => { if (val === null || val === '') b.style.removeProperty(prop); else b.style.setProperty(prop, val); }); return true; }
 function aplicarBloco(ed, prop, val) { const bs = blocosSel(ed); if (!bs.length) { toast('Posicione o cursor no texto', 'err'); return false; } return aplicarBlocoEm(bs, prop, val); }
+function trocarBloco(b, tag) {
+  if (b.tagName === 'TD' || b.tagName === 'TH') {           // dentro de célula: embrulha o conteúdo, não destrói a tabela
+    const novo = document.createElement(tag);
+    while (b.firstChild) novo.appendChild(b.firstChild);
+    b.appendChild(novo); return novo;
+  }
+  if (b.tagName === 'LI') {                                  // item de lista vira bloco solto, fora da lista
+    const lista = b.parentElement, novo = document.createElement(tag);
+    while (b.firstChild) novo.appendChild(b.firstChild);
+    const depois = []; let n = b.nextElementSibling; while (n) { depois.push(n); n = n.nextElementSibling; }
+    lista.parentNode.insertBefore(novo, lista.nextSibling);
+    if (depois.length) { const l2 = document.createElement(lista.tagName); depois.forEach(x => l2.appendChild(x)); novo.parentNode.insertBefore(l2, novo.nextSibling); }
+    b.remove(); if (!lista.children.length) lista.remove();
+    return novo;
+  }
+  const novo = document.createElement(tag);
+  const st = b.getAttribute('style'); if (st) novo.setAttribute('style', st);
+  const al = b.getAttribute('align'); if (al) novo.setAttribute('align', al);
+  while (b.firstChild) novo.appendChild(b.firstChild);
+  b.replaceWith(novo); return novo;
+}
 function aplicarEstilo(ed, tag) {
-  ed.focus(); const bs = blocosSel(ed);
-  if (tag === 'p') { bs.forEach(b => { if (/^H[1-6]$/.test(b.tagName) || b.tagName === 'BLOCKQUOTE' || b.tagName === 'PRE') docCmd(ed, 'formatBlock', 'p'); }); docCmd(ed, 'formatBlock', 'p'); }
-  else docCmd(ed, 'formatBlock', tag);
+  ed.focus();
+  const bs = blocosSel(ed);
+  if (!bs.length) { docCmd(ed, 'formatBlock', tag); return true; }   // texto ainda sem bloco
+  const novos = [];
+  for (const b of bs) novos.push(b.tagName.toLowerCase() === tag ? b : trocarBloco(b, tag));
+  const val = novos.filter(x => x && x.isConnected);
+  if (val.length) {
+    try {
+      const r = document.createRange();
+      r.setStart(val[0], 0); r.setEnd(val[val.length - 1], val[val.length - 1].childNodes.length);
+      const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+    } catch (_) {}
+  }
+  return true;
 }
 
 /* ---------- editor ---------- */
@@ -2178,13 +2213,29 @@ function renderDocEditor(P, c, opts = {}) {
     G.innerHTML = g; G.style.height = ed.scrollHeight + 'px'; return n;
   }
   /* ---------- índice lateral ---------- */
+  const rolarAte = el => {
+    const area = $('#folha-area', P), cont = document.getElementById('content');
+    const rolavel = x => x && x.scrollHeight > x.clientHeight + 4;
+    const box = rolavel(area) ? area : (rolavel(cont) ? cont : null);
+    if (!box) { el.scrollIntoView({ block: 'center', behavior: 'smooth' }); return; }
+    const r = el.getBoundingClientRect(), br = box.getBoundingClientRect();
+    const destino = box.scrollTop + (r.top - br.top) - Math.min(80, box.clientHeight / 4);
+    box.scrollTo({ top: Math.max(0, destino), behavior: 'smooth' });
+  };
   function indice() {
     const N = $('#docnav', P); const hs = $$('h1,h2,h3,h4', ed);
     hs.forEach((h, i) => { if (!h.id) h.id = 'h' + i + '-' + Math.random().toString(36).slice(2, 6); });
     N.innerHTML = `<div class="dnh"><b>Índice</b><button class="btn sm ghost" id="dn-ins" title="Inserir um sumário no próprio documento">inserir no texto</button></div>
       ${hs.length ? `<div class="dnl">${hs.map(h => `<a data-h="${h.id}" class="n${h.tagName[1]}">${esc(h.textContent.trim() || '(sem texto)')}</a>`).join('')}</div>`
         : '<div class="empty" style="padding:10px 4px;font-size:12px">Aplique os estilos Título 1, 2, 3 ou 4 aos seus subtítulos e eles aparecerão aqui para navegação rápida.</div>'}`;
-    $$('[data-h]', N).forEach(a => a.onclick = () => { const el = $('#' + CSS.escape(a.dataset.h), ed); if (el) { el.scrollIntoView({ block: 'center', behavior: 'smooth' }); const r = document.createRange(); r.selectNodeContents(el); r.collapse(true); const s = window.getSelection(); s.removeAllRanges(); s.addRange(r); ed.focus(); } });
+    $$('[data-h]', N).forEach(a => a.onclick = () => {
+      const el = $('#' + CSS.escape(a.dataset.h), ed); if (!el) return;
+      rolarAte(el);
+      const r = document.createRange(); r.selectNodeContents(el); r.collapse(true);
+      const s = window.getSelection(); s.removeAllRanges(); s.addRange(r); ed.focus();
+      $$('[data-h]', N).forEach(x => x.classList.toggle('aqui', x === a));
+      el.classList.add('piscando'); setTimeout(() => el.classList.remove('piscando'), 1200);
+    });
     $('#dn-ins', N).onclick = () => {
       if (!hs.length) { toast('Nenhum título no documento', 'err'); return; }
       const html = `<div class="sumario-doc"><p class="st">SUMÁRIO</p>${hs.map(h => `<p class="s${h.tagName[1]}">${esc(h.textContent.trim())}</p>`).join('')}</div><p><br></p>`;
@@ -2269,7 +2320,15 @@ function renderDocEditor(P, c, opts = {}) {
   document.addEventListener('selectionchange', window._docSel);
   /* barra */
   $$('[data-cmd]', P).forEach(b => b.onmousedown = e => { e.preventDefault(); docCmd(ed, b.dataset.cmd, b.dataset.arg); persist(); atualizarBarra(); });
-  $('#d-estilo', P).onchange = e => { restaurar(); aplicarEstilo(ed, e.target.value); persist(); indice(); atualizarBarra(); };
+  $('#d-estilo', P).onchange = e => {
+    if (!noEditor()) {
+      toast('Clique antes no parágrafo que você quer formatar', 'err');
+      const b0 = blocosSel(ed)[0], tg = b0 ? b0.tagName.toLowerCase() : 'p';
+      e.target.value = ESTILOS.some(x => x[0] === tg) ? tg : 'p';
+      return;
+    }
+    restaurar(); aplicarEstilo(ed, e.target.value); persist(); indice(); atualizarBarra();
+  };
   $('#d-fam', P).onchange = e => { const v = e.target.value;
     if (alvo() === 'doc') { D.fam = v; save(); aplicaFolha(); toast('Fonte do documento: ' + v, 'ok'); }
     else { aplicarFonte(ed, v); persist(); } };
