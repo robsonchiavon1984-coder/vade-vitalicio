@@ -2321,13 +2321,17 @@ function renderDocEditor(P, c, opts = {}) {
   /* barra */
   $$('[data-cmd]', P).forEach(b => b.onmousedown = e => { e.preventDefault(); docCmd(ed, b.dataset.cmd, b.dataset.arg); persist(); atualizarBarra(); });
   $('#d-estilo', P).onchange = e => {
+    /* o valor é lido ANTES de qualquer coisa: devolver o foco ao editor dispara
+       selectionchange → atualizarBarra(), que reescreve este seletor com o estilo
+       do parágrafo atual — lê-lo depois traria sempre o estilo antigo */
+    const valor = e.target.value;
     if (!noEditor()) {
       toast('Clique antes no parágrafo que você quer formatar', 'err');
       const b0 = blocosSel(ed)[0], tg = b0 ? b0.tagName.toLowerCase() : 'p';
       e.target.value = ESTILOS.some(x => x[0] === tg) ? tg : 'p';
       return;
     }
-    restaurar(); aplicarEstilo(ed, e.target.value); persist(); indice(); atualizarBarra();
+    restaurar(); aplicarEstilo(ed, valor); persist(); indice(); atualizarBarra();
   };
   $('#d-fam', P).onchange = e => { const v = e.target.value;
     if (alvo() === 'doc') { D.fam = v; save(); aplicaFolha(); toast('Fonte do documento: ' + v, 'ok'); }
@@ -2337,8 +2341,9 @@ function renderDocEditor(P, c, opts = {}) {
     if (alvo() === 'doc') { D.tam = v; save(); aplicaFolha(); toast('Corpo do documento: ' + v + ' pt', 'ok'); }
     else { aplicarTamanho(ed, v); persist(); } };
   $('#d-tam', P).onchange = e => {
-    if (e.target.value === '__outro__') { salvarSel(); openModal({ title: 'Corpo da fonte', body: `<div class="form"><label>Tamanho em pontos (aceita decimais, ex.: 11,5)<input type="text" id="tm-v" value="${D.tam}"></label></div>`, buttons: [{ label: 'Cancelar', onClick: () => sincTam(D.tam) }, { label: 'Aplicar', cls: 'pri', onClick: () => setTam($('#tm-v').value) }] }); return; }
-    setTam(e.target.value);
+    const val = e.target.value;
+    if (val === '__outro__') { salvarSel(); openModal({ title: 'Corpo da fonte', body: `<div class="form"><label>Tamanho em pontos (aceita decimais, ex.: 11,5)<input type="text" id="tm-v" value="${D.tam}"></label></div>`, buttons: [{ label: 'Cancelar', onClick: () => sincTam(D.tam) }, { label: 'Aplicar', cls: 'pri', onClick: () => setTam($('#tm-v').value) }] }); return; }
+    setTam(val);
   };
   const tamAtual = () => parseFloat($('#d-tam', P).value) || D.tam;
   $('#d-tam-m', P).onclick = () => { salvarSel(); const i = DOC_TAM.filter(t => t < tamAtual()).pop(); setTam(i || 6); };
