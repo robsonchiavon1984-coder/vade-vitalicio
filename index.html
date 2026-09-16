@@ -788,6 +788,53 @@ html.m .strow .acts,html.m .strun .acts{order:3;margin-left:auto}
 .df.add{background:rgba(34,197,94,.18);color:var(--ok);border-radius:3px;padding:0 2px}
 html.m .gsbox{display:none}
 @media (max-width:1000px){.gsbox{max-width:none}.gsbox input{font-size:12.5px}}
+/* ---------- parte 12: abas e divisão de tela ---------- */
+.abasbar{display:flex;align-items:center;gap:8px;padding:6px 10px 0;border-bottom:1px solid var(--line);background:var(--glass2);flex:none}
+.abas-rol{display:flex;align-items:flex-end;gap:3px;flex:1;min-width:0;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;padding-bottom:0}
+.abas-rol::-webkit-scrollbar{height:4px}
+.abas-dir{display:flex;align-items:center;gap:5px;flex:none;padding-bottom:5px}
+.aba{display:flex;align-items:center;gap:6px;max-width:210px;min-width:92px;padding:7px 8px 8px 10px;border:1px solid transparent;border-bottom:0;border-radius:11px 11px 0 0;font-size:12.5px;color:var(--txt2);cursor:pointer;flex:none;transition:.12s;position:relative;top:1px}
+.aba:hover{background:var(--glass2);color:var(--txt)}
+.aba.on{background:var(--glass-hi);border-color:var(--gb2);color:var(--pri-txt);font-weight:600;box-shadow:0 -2px 8px -4px rgba(20,24,60,.2)}
+.aba.on:after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--glass-hi)}
+.aba .ic{font-size:12px;opacity:.7;flex:none}
+.aba .t{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.aba .x{opacity:0;border-radius:6px;width:17px;height:17px;line-height:1;font-size:14px;color:var(--txt3);flex:none}
+.aba:hover .x,.aba.on .x{opacity:1}
+.aba .x:hover{background:var(--err-soft);color:var(--err)}
+.aba.arrastando{opacity:.4}
+.aba.dz{box-shadow:inset 3px 0 0 var(--pri)}
+.aba-add{flex:none;width:26px;height:26px;border-radius:9px;color:var(--txt3);font-size:17px;line-height:1;align-self:center;margin-left:2px}
+.aba-add:hover{background:var(--glass3);color:var(--pri-txt)}
+.palco{flex:1;display:flex;min-height:0;min-width:0}
+.palco>.content{flex:1;min-width:0}
+.divisor{flex:none;width:7px;cursor:col-resize;background:linear-gradient(90deg,transparent 2px,var(--line) 3px,var(--line) 4px,transparent 5px);transition:.15s}
+.divisor:hover{background:linear-gradient(90deg,transparent 1px,var(--pri) 2px,var(--pri) 5px,transparent 6px)}
+.p2{flex:0 0 42%;min-width:240px;display:flex;flex-direction:column;overflow:hidden;border-left:1px solid var(--line);background:var(--panel2)}
+.p2-bar{display:flex;align-items:center;gap:5px;padding:8px 10px;border-bottom:1px solid var(--line);background:var(--glass2);flex:none}
+.p2-busca{position:relative;flex:1;min-width:0;display:flex;align-items:center;gap:6px;border:1px solid var(--gb2);background:var(--glass3);border-radius:10px;padding:0 8px}
+.p2-busca:focus-within{border-color:var(--pri);box-shadow:0 0 0 3px var(--pri-soft)}
+.p2-busca svg{width:14px;height:14px;stroke:var(--txt3);fill:none;stroke-width:2;flex:none}
+.p2-busca input{flex:1;min-width:0;border:0;background:transparent;outline:none;font-family:var(--ui);font-size:12.5px;color:var(--txt);padding:6px 0}
+.p2-res{position:absolute;top:calc(100% + 5px);left:-4px;right:-4px;z-index:50;background:linear-gradient(var(--glass-hi),var(--glass-hi)),var(--bg);border:1px solid var(--gb);border-radius:12px;box-shadow:var(--shadow2);max-height:320px;overflow:auto;padding:4px}
+.p2-res a{display:block;padding:6px 9px;border-radius:9px;cursor:pointer;font-size:12.5px}
+.p2-res a:hover{background:var(--glass2)}
+.p2-res a b{display:block}
+.p2-res a span{color:var(--txt3);font-size:11.5px;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.p2-cab{padding:10px 12px 4px;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.p2-cab b{font-size:14px}
+.p2-corpo{flex:1;overflow:auto;padding:6px 14px 30px;font-family:var(--read-font);font-size:calc(var(--fs) - 2px);line-height:1.6}
+.p2-corpo.doc p{margin:0 0 8px}
+.p2-corpo table{border-collapse:collapse}.p2-corpo td,.p2-corpo th{border:1px solid var(--line2);padding:4px 7px}
+.p2-lista{display:flex;flex-direction:column;font-family:var(--ui)}
+.p2-lista a{display:flex;gap:9px;padding:6px 8px;border-radius:9px;cursor:pointer;font-size:12.5px;border-bottom:1px solid var(--line)}
+.p2-lista a:hover{background:var(--glass3);color:var(--pri-txt)}
+.p2-lista a b{flex:none;min-width:62px}
+.p2-lista a span{color:var(--txt3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+html.m .abasbar{padding:4px 6px 0}
+html.m .aba{min-width:76px;max-width:150px;font-size:12px}
+html.m .abas-dir #aba-split,html.m .abas-dir #aba-dup{display:none}
+@media print{.abasbar,.divisor,.p2{display:none!important}}
 @media (max-width:1100px){.app,.app.rail-collapsed{grid-template-columns:66px 290px 1fr}.rail .brand span,.rail .navbtn span,.rail .sec,.rail .ramos,.navbtn .kbd,.foot .lbl{display:none}.navbtn{justify-content:center}}
 /* ---------- modo móvel (html.m) ---------- */
 .tabbar{display:none;position:fixed;left:0;right:0;bottom:0;z-index:40;background:var(--glass3);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);border-top:1px solid var(--gb);padding:6px 4px calc(6px + env(safe-area-inset-bottom));justify-content:space-around;gap:2px}
@@ -897,6 +944,8 @@ html.m .sheet{display:flex;flex-direction:column;gap:4px}
       <button class="btn sm ghost" id="btn-fonte" title="Alternar fonte de leitura">Serif</button>
       <button class="btn sm" id="btn-backup-quick" title="Exportar backup (.json)"><svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg><span>Backup</span></button>
     </div>
+    <div class="abasbar" id="abas"></div>
+    <div class="palco" id="palco">
     <div class="content" id="content">
       <div class="view" id="view-dashboard"></div>
       <div class="view active" id="view-leitura" style="max-width:none;padding:0"><div class="reader" id="reader"></div></div>
@@ -908,6 +957,9 @@ html.m .sheet{display:flex;flex-direction:column;gap:4px}
       <div class="view" id="view-revisao"></div>
       <div class="view" id="view-atualizacoes"></div>
       <div class="view" id="view-config"></div>
+    </div>
+    <div class="divisor" id="divisor" hidden title="Arraste para redimensionar · clique duas vezes para centralizar"></div>
+    <aside class="p2" id="painel2" hidden></aside>
     </div>
   </main>
 </div>
@@ -1315,10 +1367,15 @@ function renderTree() {
     return `<div class="lei ${open ? 'open' : ''} ${lei.id === UI.leiId ? 'cur' : ''} ${UI.reordenar ? 'org' : ''}" data-lei="${lei.id}" ${UI.reordenar ? 'draggable="true"' : ''}><div class="lei-h" title="${UI.reordenar ? 'Arraste para reposicionar' : 'Clique para abrir a página da lei; a seta expande o sumário'}">${UI.reordenar ? '<span class="grip">⠿</span>' : I.chev}${ramoIco(lei)}<div class="t"><b>${esc(lei.epigrafe)}</b><small>${esc(lei.nome)}</small></div><span class="cnt">${n} art${n === 1 ? '.' : 's.'}</span></div>${body}</div>`;
   }).join('');
   if (UI.reordenar) bindArrastarLeis(cont);
-  $$('.lei-h', cont).forEach(h => h.onclick = e => { const id = h.parentElement.dataset.lei; if (UI.reordenar) return; if (e.target.closest('.chev')) { UI.openLeis.has(id) ? UI.openLeis.delete(id) : UI.openLeis.add(id); renderTree(); return; } if (UI.leiId === id && !UI.artId) { UI.openLeis.has(id) ? UI.openLeis.delete(id) : UI.openLeis.add(id); renderTree(); return; } openLeiHome(id); });
+  $$('.lei-h', cont).forEach(h => h.onclick = e => { const id = h.parentElement.dataset.lei; if (UI.reordenar) return; if (e.target.closest('.chev')) { UI.openLeis.has(id) ? UI.openLeis.delete(id) : UI.openLeis.add(id); renderTree(); return; } if ((e.ctrlKey || e.metaKey) && typeof novaAba === 'function') { novaAba({ view: 'leitura', leiId: id, artId: null }, false); return; } if (e.altKey && typeof verAoLado === 'function') { verAoLado({ tipo: 'lei', leiId: id }); return; } if (UI.leiId === id && !UI.artId) { UI.openLeis.has(id) ? UI.openLeis.delete(id) : UI.openLeis.add(id); renderTree(); return; } openLeiHome(id); });
   $$('.grp-h', cont).forEach(h => h.onclick = e => { if (e.target.closest('.gedit')) return; const id = h.dataset.grp; UI.openGrps.has(id) ? UI.openGrps.delete(id) : UI.openGrps.add(id); h.parentElement.classList.toggle('open'); });
   $$('.grp-h .gedit', cont).forEach(b => b.onclick = e => { e.stopPropagation(); modalCabecalho(b.closest('.lei').dataset.lei, b.closest('.grp-h').dataset.grp); });
-  $$('.artrow', cont).forEach(a => a.onclick = () => openArt(a.closest('.lei').dataset.lei, a.dataset.art));
+  $$('.artrow', cont).forEach(a => a.onclick = e => {
+    const li = a.closest('.lei').dataset.lei, ai = a.dataset.art;
+    if ((e.ctrlKey || e.metaKey) && typeof novaAba === 'function') { novaAba({ view: 'leitura', leiId: li, artId: ai, tab: 'leitura' }, false); return; }
+    if (e.altKey && typeof verAoLado === 'function') { verAoLado({ tipo: 'art', leiId: li, artId: ai }); return; }
+    openArt(li, ai);
+  });
   $$('[data-imp]', cont).forEach(a => a.onclick = () => modalImportar(a.dataset.imp));
   $$('[data-addart]', cont).forEach(a => a.onclick = () => modalArtigo(a.dataset.addart));
   const act = $('.artrow.active', cont); if (act) act.scrollIntoView({ block: 'nearest' });
@@ -1351,6 +1408,7 @@ function showView(v) {
   const fn = { dashboard: renderDashboard, cadernos: renderCadReader, busca: renderBusca, temas: renderTemas, favoritos: renderFavoritos, revisao: renderRevisao, concursos: renderConcursos, atualizacoes: renderAtualizacoes, config: renderConfig, leitura: renderReader }[v];
   if (fn) fn();
   $('#content').scrollTop = 0; if (typeof renderTabbar === 'function') { closeDrawer(); renderTabbar(); }
+  if (typeof abaSync === 'function') abaSync();
 }
 function openArt(leiId, artId, tab) {
   flushDirty();
@@ -1362,9 +1420,10 @@ function openArt(leiId, artId, tab) {
   S.prefs.ultimo = { leiId, artId }; save();
   if (UI.view !== 'leitura') showView('leitura'); else renderReader();
   renderTree(); closeDrawer();
+  if (typeof abaSync === 'function') abaSync();
 }
 function openLei(leiId) { openLeiHome(leiId); }
-function openLeiHome(leiId) { flushDirty(); const l = leiById(leiId); if (!l) return; UI.leiId = leiId; UI.artId = null; UI.openLeis.add(leiId); S.prefs.ultimo = { leiId, artId: null }; if (S.prefs.ramoAtivo && !l.ramos.includes(S.prefs.ramoAtivo)) { S.prefs.ramoAtivo = null; renderRamos(); } save(); if (UI.view !== 'leitura') showView('leitura'); else { renderReader(); renderTree(); } closeDrawer(); }
+function openLeiHome(leiId) { flushDirty(); const l = leiById(leiId); if (!l) return; UI.leiId = leiId; UI.artId = null; UI.openLeis.add(leiId); S.prefs.ultimo = { leiId, artId: null }; if (S.prefs.ramoAtivo && !l.ramos.includes(S.prefs.ramoAtivo)) { S.prefs.ramoAtivo = null; renderRamos(); } save(); if (UI.view !== 'leitura') showView('leitura'); else { renderReader(); renderTree(); } closeDrawer(); if (typeof abaSync === 'function') abaSync(); }
 function vizinho(dir) { const l = leiById(UI.leiId); if (!l) return null; const arts = artigosDe(l); const i = arts.findIndex(a => a.id === UI.artId); const v = arts[i + dir]; return v || null; }
 
 /* ================= editor rico ================= */
@@ -1557,6 +1616,8 @@ function migrate(st) {
   for (const co of st.concursos) { if (!co.insc) co.insc = { abertura: '', fim: '', taxa: '', url: '', pago: false }; if (!Array.isArray(co.fases)) co.fases = []; if (!co.cor) co.cor = '#4f46e5'; }
   for (const c of st.cronos) { if (!Array.isArray(c.discs)) c.discs = []; if (!c.laws) c.laws = {}; if (!c.reads) c.reads = {}; if (!Array.isArray(c.adjust)) c.adjust = []; if (!c.unidade) c.unidade = 'artigos';
     for (const d of c.discs) for (const l of (c.laws[d.id] || [])) if (l.qtd === undefined) { l.qtd = +l.artigos || 0; delete l.artigos; } }
+  if (!Array.isArray(st.prefs.abas)) st.prefs.abas = null;
+  if (!st.prefs.split) st.prefs.split = { on: false, larg: 42, alvo: null };
   if (!st.prefs.ordemLeis) st.prefs.ordemLeis = 'manual';
   st.versao = 2;
   if (!st.prefs.openSum) st.prefs.openSum = {};
@@ -1802,11 +1863,11 @@ function renderCadTree() {
   for (const r of ramos) { const roots = S.cadernos.filter(c => c.ramo === r.id && !c.parentId && (!f || visible.has(c.id))); if (!roots.length && (f || ramo === null)) { if (!ramo) continue; } h += `<div class="lei"><div class="lei-h" data-ramo="${r.id}" style="cursor:default"><span class="ico" style="background:${r.cor}">${esc(r.nome.replace(/^Direito\s+/i, '').slice(0, 3).toUpperCase())}</span><div class="t"><b>${esc(r.nome)}</b><small>${S.cadernos.filter(c => c.ramo === r.id && c.tipo === 'caderno').length} cadernos</small></div><button class="ibtn" data-newin="${r.id}" title="Novo caderno neste ramo" style="width:26px;height:26px">${I.plus}</button></div><div class="lei-body">${roots.map(node).join('') || '<div class="empty" style="padding:4px 10px">Nenhum caderno neste ramo.</div>'}</div></div>`; }
   const sem = S.cadernos.filter(c => !c.ramo && !c.parentId && (!f || visible.has(c.id))); if (sem.length && !ramo) h += `<div class="lei"><div class="lei-h" style="cursor:default"><span class="ico">—</span><div class="t"><b>Sem ramo</b></div></div><div class="lei-body">${sem.map(node).join('')}</div></div>`;
   cont.innerHTML = h || '<div class="empty">Nenhum caderno ainda. Use o botão + para criar uma pasta ou um caderno.</div>';
-  $$('.crow', cont).forEach(r => { const id = r.parentElement.dataset.id; r.onclick = e => { if (e.target.closest('.gedit')) { modalCaderno({ id }); return; } const c = cadById(id); if (e.target.closest('.chev') && c.tipo === 'pasta') { UI.openCads.has(id) ? UI.openCads.delete(id) : UI.openCads.add(id); r.parentElement.classList.toggle('open'); return; } openCad(id); }; });
+  $$('.crow', cont).forEach(r => { const id = r.parentElement.dataset.id; r.onclick = e => { if (e.target.closest('.gedit')) { modalCaderno({ id }); return; } const c = cadById(id); if (e.target.closest('.chev') && c.tipo === 'pasta') { UI.openCads.has(id) ? UI.openCads.delete(id) : UI.openCads.add(id); r.parentElement.classList.toggle('open'); return; } if ((e.ctrlKey || e.metaKey) && typeof novaAba === 'function') { novaAba({ view: 'cadernos', cadId: id, cadTab: 'conteudo' }, false); return; } if (e.altKey && c.tipo === 'caderno' && typeof verAoLado === 'function') { verAoLado({ tipo: 'cad', cadId: id }); return; } openCad(id); }; });
   $$('[data-newin]', cont).forEach(b => b.onclick = () => modalCaderno({ ramo: b.dataset.newin }));
   const act = $('.crow.active', cont); if (act) act.scrollIntoView({ block: 'nearest' });
 }
-function openCad(id) { const c = cadById(id); if (!c) return; flushDirty(); UI.cadId = id; if (c.parentId) UI.openCads.add(c.parentId); if (c.tipo === 'pasta') UI.openCads.add(id); if (S.prefs.ramoAtivo && c.ramo !== S.prefs.ramoAtivo) { S.prefs.ramoAtivo = null; renderRamos(); } S.prefs.ultimoCad = id; save(); if (UI.view !== 'cadernos') showView('cadernos'); else { renderCadReader(); renderTree(); } closeDrawer(); }
+function openCad(id) { const c = cadById(id); if (!c) return; flushDirty(); UI.cadId = id; if (c.parentId) UI.openCads.add(c.parentId); if (c.tipo === 'pasta') UI.openCads.add(id); if (S.prefs.ramoAtivo && c.ramo !== S.prefs.ramoAtivo) { S.prefs.ramoAtivo = null; renderRamos(); } S.prefs.ultimoCad = id; save(); if (UI.view !== 'cadernos') showView('cadernos'); else { renderCadReader(); renderTree(); } closeDrawer(); if (typeof abaSync === 'function') abaSync(); }
 function renderCadReader() {
   const R = $('#creader'); const c = UI.cadId ? cadById(UI.cadId) : null;
   if (!c) { UI.cadId = null; R.innerHTML = `<div class="card p" style="margin-top:30px;text-align:center"><h2 class="vt" style="font-size:20px">Cadernos de estudo</h2><p class="sub">Guarde aqui artigos científicos, apostilas, resumos e fichamentos, organizados por ramo do direito e por pastas em árvore. Cada caderno tem editor completo, temas, estrelas, correlações com artigos de lei e a aba IA.</p><div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap"><button class="btn pri" id="c-novo">${I.plus} Novo caderno</button><button class="btn" id="c-pasta">Nova pasta</button></div></div>`; $('#c-novo').onclick = () => modalCaderno({ tipo: 'caderno' }); $('#c-pasta').onclick = () => modalCaderno({ tipo: 'pasta' }); return; }
@@ -4291,27 +4352,27 @@ function previewHTML(al) {
   if (al.tipo === 'jur') {
     const j = al.jur, t = tipoJuris(j.tipo);
     return `<div class="vp-head"><span class="chip" style="background:${tipoJurisCor(j.tipo)}1f;color:${tipoJurisCor(j.tipo)};border-color:transparent">${esc(tipoJurisNome(j.tipo))}${t && t.vinc ? ' · vinculante' : ''}</span><b>${esc(j.titulo)}</b><span style="flex:1"></span>
-      <button class="btn sm" data-vp="janela">⧉ janela</button><button class="btn sm pri" data-vp="abrir">Editar na aba</button><button class="btn sm ghost" data-vp="fechar">✕</button></div>
+      <button class="btn sm" data-vp="lado" title="Abrir na divisão de tela, ao lado">◨ ao lado</button><button class="btn sm" data-vp="janela">⧉ janela</button><button class="btn sm pri" data-vp="abrir">Editar na aba</button><button class="btn sm ghost" data-vp="fechar">✕</button></div>
       <div class="vp-corpo">${sanitizeHtml(j.conteudo) || '<div class="empty">Julgado sem conteúdo.</div>'}</div>`;
   }
   if (al.tipo === 'cad') {
     const c = al.cad;
     return `<div class="vp-head"><b>${esc(c.titulo)}</b><span class="mini">caderno · ${esc((ramoById(c.ramo) || {}).nome || 'sem ramo')}</span><span style="flex:1"></span>
-      <button class="btn sm" data-vp="janela">⧉ janela</button><button class="btn sm pri" data-vp="abrir">Abrir caderno</button><button class="btn sm ghost" data-vp="fechar">✕</button></div>
+      <button class="btn sm" data-vp="lado" title="Abrir na divisão de tela, ao lado">◨ ao lado</button><button class="btn sm" data-vp="janela">⧉ janela</button><button class="btn sm pri" data-vp="abrir">Abrir caderno</button><button class="btn sm ghost" data-vp="fechar">✕</button></div>
       ${al.obs ? `<div class="vp-obs">${esc(al.obs)}</div>` : ''}
       <div class="vp-corpo">${sanitizeHtml(c.conteudo) || '<div class="empty">Caderno sem conteúdo.</div>'}</div>`;
   }
   if (al.tipo === 'lei') {
     const l = al.lei, arts = artigosDe(l);
     return `<div class="vp-head"><b>${esc(l.epigrafe)}</b><span class="mini">${esc(l.nome)}</span><span style="flex:1"></span>
-      <button class="btn sm" data-vp="janela">⧉ janela</button><button class="btn sm pri" data-vp="abrir">Abrir lei</button><button class="btn sm ghost" data-vp="fechar">✕</button></div>
+      <button class="btn sm" data-vp="lado" title="Abrir na divisão de tela, ao lado">◨ ao lado</button><button class="btn sm" data-vp="janela">⧉ janela</button><button class="btn sm pri" data-vp="abrir">Abrir lei</button><button class="btn sm ghost" data-vp="fechar">✕</button></div>
       <div class="vp-corpo"><p class="mini">${arts.length ? `${nfBR.format(arts.length)} artigos cadastrados.` : 'Texto ainda não importado.'}${l.ementa ? ' ' + esc(l.ementa) : ''}</p>
       ${arts.slice(0, 3).map(a => `<p><b>${esc(artLabel(a))}</b> ${esc(plain(a.texto).replace(/^Art\.?\s*[\d.ºo°\-A-Z]+\.?\s*/i, '').slice(0, 180))}…</p>`).join('')}</div>`;
   }
   const a = al.art, l = al.lei, cr = crumbsDe(l, a);
   return `<div class="vp-head"><b>${esc(l.sigla)}, ${esc(artLabel(a))}</b><span class="mini">${esc(l.epigrafe)}</span>
       ${a.estrelas ? `<span style="color:var(--star)">${'★'.repeat(a.estrelas)}</span>` : ''}${a.status !== 'vigente' ? `<span class="status ${a.status}">${a.status}</span>` : ''}<span style="flex:1"></span>
-      <button class="btn sm" data-vp="janela">⧉ janela</button><button class="btn sm pri" data-vp="abrir">Abrir artigo</button><button class="btn sm ghost" data-vp="fechar">✕</button></div>
+      <button class="btn sm" data-vp="lado" title="Abrir na divisão de tela, ao lado">◨ ao lado</button><button class="btn sm" data-vp="janela">⧉ janela</button><button class="btn sm pri" data-vp="abrir">Abrir artigo</button><button class="btn sm ghost" data-vp="fechar">✕</button></div>
     ${cr.length ? `<div class="crumbs vp-crumbs">${cr.map(c => `<span>${esc(c)}</span>`).join('')}</div>` : ''}
     ${al.obs ? `<div class="vp-obs">${esc(al.obs)}</div>` : ''}
     <div class="vp-corpo leitura">${sanitizeHtml(a.texto) || '<div class="empty">Artigo sem texto.</div>'}</div>
@@ -4386,6 +4447,10 @@ function renderVinculos(lei, art) {
   if (pv) $$('[data-vp]', pv).forEach(x => x.onclick = () => {
     const op = x.dataset.vp;
     if (op === 'abrir') abrirAlvo(al);
+    else if (op === 'lado') {
+      const a = al;
+      if (a && typeof verAoLado === 'function') verAoLado(a.tipo === 'cad' ? { tipo: 'cad', cadId: a.cad.id } : a.tipo === 'lei' ? { tipo: 'lei', leiId: a.lei.id } : a.tipo === 'jur' ? { tipo: 'art', leiId: a.lei.id, artId: a.art.id } : { tipo: 'art', leiId: a.lei.id, artId: a.art.id });
+    }
     else if (op === 'janela') { const k = UI.vprev; UI.vprev = null; renderVinculos(lei, art); janelaPreview(lei, art, k); }
     else { UI.vprev = null; renderVinculos(lei, art); }
   });
@@ -4559,13 +4624,21 @@ function gRender() {
     const qual = r.exato && r.cob > .99 ? ['ok', 'confere integralmente'] : pc >= 90 ? ['ok', 'confere, com pequenas diferenças'] : pc >= 60 ? ['warn', 'confere em parte'] : ['err', 'poucas coincidências'];
     return `<div class="gsp-i" data-i="${i}">
       <div class="gsp-t"><span class="chip tp" ${r.d.cor ? `style="background:${r.d.cor}1f;color:${r.d.cor};border-color:transparent"` : ''}>${esc(r.d.tipo)}</span><b>${esc(r.d.rot)}</b><span class="mini">${esc(r.d.sub || '')}</span>
-        ${modo === 'trecho' ? `<span style="flex:1"></span><span class="chip ${qual[0]}" title="${qual[1]}">${pc}%</span><button class="btn sm ghost" data-cmp="${i}" title="Comparar palavra por palavra">comparar</button>` : ''}</div>
+        <span style="flex:1"></span>${modo === 'trecho' ? `<span class="chip ${qual[0]}" title="${qual[1]}">${pc}%</span><button class="btn sm ghost" data-cmp="${i}" title="Comparar palavra por palavra">comparar</button>` : ''}<button class="btn sm ghost" data-lado="${i}" title="Abrir na divisão de tela, ao lado">◨</button></div>
       <div class="gsp-s">${gTrecho(r, modo === 'trecho' ? 6 : 10)}</div></div>`;
   }).join('');
   p.innerHTML = cab + (res.length ? `<div class="gsp-list">${linhas}</div>` : `<div class="empty">Nada encontrado. ${modo === 'trecho' ? 'O trecho pode ser de uma lei ainda não importada, ou a redação divergir bastante da registrada aqui.' : 'Tente outras palavras.'}</div>`)
     + `<div class="gsp-foot"><span><kbd>↑</kbd><kbd>↓</kbd> percorrer · <kbd>Enter</kbd> abrir · <kbd>Esc</kbd> fechar</span><button class="btn sm ghost" id="gsp-full">Abrir na Pesquisa</button></div>`;
   $$('.gsp-i', p).forEach(el => el.onclick = e => { if (e.target.closest('[data-cmp]')) return; gIr(+el.dataset.i); });
   $$('[data-cmp]', p).forEach(b => b.onclick = e => { e.stopPropagation(); gComparar(+b.dataset.cmp); });
+  $$('[data-lado]', p).forEach(b => b.onclick = e => {
+    e.stopPropagation(); const r = UI.gRes[+b.dataset.lado]; if (!r) return; const d = r.d;
+    gFechar();
+    if (typeof verAoLado !== 'function') return;
+    if (d.k === 'cad') verAoLado({ tipo: 'cad', cadId: d.cadId });
+    else if (d.k === 'lei' || d.k === 'leinota') verAoLado({ tipo: 'lei', leiId: d.leiId });
+    else verAoLado({ tipo: 'art', leiId: d.leiId, artId: d.artId });
+  });
   $('#gsp-full', p).onclick = () => { gFechar(); UI.busca = { q, modo: 'tudo', ramo: '', lei: '', estrelas: 0 }; showView('busca'); };
   gAbrir();
 }
@@ -4642,6 +4715,257 @@ function initBuscaGlobal() {
   });
   $('#gs-x').onclick = () => { inp.value = ''; inp.focus(); gRender(); };
   document.addEventListener('mousedown', e => { if (!e.target.closest('.gsbox')) gFechar(); });
+}
+</script>
+<script>
+/* =====================================================================
+   PARTE 12 — abas de navegação e divisão de tela
+   Abas guardam o que você estava vendo (artigo, lei, caderno, tela) e
+   voltam a ele com um clique. A divisão abre um segundo painel de
+   consulta ao lado, para ler a lei enquanto se escreve no caderno.
+   ===================================================================== */
+let restaurandoAba = false;
+
+/* ---------- estado de uma aba ---------- */
+function estadoAtual() {
+  return { view: UI.view, leiId: UI.leiId, artId: UI.artId, cadId: UI.cadId, tab: UI.tab, cadTab: UI.cadTab, leiTab: UI.leiTab, conTab: UI.conTab, cronoId: UI.cronoId, cronoSeg: UI.cronoSeg };
+}
+const NOMES_VIEW = { dashboard: 'Painel', leitura: 'Legislação', cadernos: 'Cadernos', concursos: 'Concursos', busca: 'Pesquisa', temas: 'Temas', favoritos: 'Favoritos', revisao: 'Revisão', atualizacoes: 'Atualizações', config: 'Ajustes' };
+function tituloEstado(e) {
+  if (!e) return 'Aba';
+  if (e.view === 'leitura') {
+    if (e.artId) { const r = findArt(e.leiId, e.artId); if (r) return `${r.lei.sigla}, ${artLabel(r.art)}`; }
+    const l = leiById(e.leiId); if (l) return l.sigla || l.epigrafe;
+    return 'Legislação';
+  }
+  if (e.view === 'cadernos') { const c = cadById(e.cadId); return c ? c.titulo : 'Cadernos'; }
+  return NOMES_VIEW[e.view] || 'Aba';
+}
+function subtituloEstado(e) {
+  if (!e) return '';
+  if (e.view === 'leitura') { const l = leiById(e.leiId); return l ? l.epigrafe : ''; }
+  if (e.view === 'cadernos') { const c = cadById(e.cadId); return c ? ((ramoById(c.ramo) || {}).nome || 'caderno') : ''; }
+  return '';
+}
+const ICO_VIEW = e => e.view === 'cadernos' ? '≡' : e.view === 'leitura' ? '§' : e.view === 'concursos' ? '◷' : '◻';
+
+/* ---------- lista de abas ---------- */
+function abas() {
+  if (!Array.isArray(S.prefs.abas) || !S.prefs.abas.length) {
+    S.prefs.abas = [{ id: uid(), e: estadoAtual() }];
+    S.prefs.abaAtiva = S.prefs.abas[0].id;
+  }
+  return S.prefs.abas;
+}
+const abaAtiva = () => abas().find(a => a.id === S.prefs.abaAtiva) || abas()[0];
+function abaSync() {
+  if (restaurandoAba) return;
+  const a = abaAtiva(); if (!a) return;
+  a.e = estadoAtual();
+  S.prefs.abaAtiva = a.id;
+  renderAbas();
+}
+function novaAba(estado, ativar = true) {
+  const a = { id: uid(), e: estado || { view: 'dashboard' } };
+  const i = abas().findIndex(x => x.id === S.prefs.abaAtiva);
+  abas().splice(i < 0 ? abas().length : i + 1, 0, a);
+  if (ativar) irParaAba(a.id); else { save(); renderAbas(); toast('Aberto em nova aba', 'ok'); }
+  return a;
+}
+function irParaAba(id) {
+  const a = abas().find(x => x.id === id); if (!a) return;
+  flushDirty();
+  S.prefs.abaAtiva = id;
+  restaurandoAba = true;
+  try {
+    const e = a.e || { view: 'dashboard' };
+    UI.tab = e.tab || 'leitura'; UI.cadTab = e.cadTab || 'conteudo'; UI.leiTab = e.leiTab || 'inicio';
+    UI.conTab = e.conTab || 'certames'; UI.cronoId = e.cronoId || null; UI.cronoSeg = e.cronoSeg || 'painel';
+    UI.leiId = e.leiId || null; UI.artId = e.artId || null; UI.cadId = e.cadId || null;
+    if (e.view === 'leitura' && e.artId && !findArt(e.leiId, e.artId)) { UI.artId = null; }
+    if (e.view === 'cadernos' && e.cadId && !cadById(e.cadId)) UI.cadId = null;
+    showView(e.view || 'dashboard');
+    if (e.view === 'leitura') renderReader();
+    if (e.view === 'cadernos') renderCadReader();
+    renderTree();
+  } finally { restaurandoAba = false; }
+  save(); renderAbas();
+}
+function fecharAba(id) {
+  const lista = abas(); if (lista.length <= 1) { toast('Esta é a única aba aberta'); return; }
+  const i = lista.findIndex(x => x.id === id); if (i < 0) return;
+  const era = S.prefs.abaAtiva === id;
+  lista.splice(i, 1);
+  if (era) { const prox = lista[Math.min(i, lista.length - 1)]; S.prefs.abaAtiva = prox.id; irParaAba(prox.id); }
+  else { save(); renderAbas(); }
+}
+function duplicarAba(id) { const a = abas().find(x => x.id === id); if (a) novaAba(JSON.parse(JSON.stringify(a.e)), true); }
+function renderAbas() {
+  const bar = $('#abas'); if (!bar) return;
+  const lista = abas(), at = S.prefs.abaAtiva;
+  bar.innerHTML = `<div class="abas-rol" id="abas-rol">${lista.map(a => `<div class="aba ${a.id === at ? 'on' : ''}" data-aba="${a.id}" draggable="true" title="${esc(tituloEstado(a.e) + (subtituloEstado(a.e) ? ' — ' + subtituloEstado(a.e) : ''))}">
+      <span class="ic">${ICO_VIEW(a.e || {})}</span><span class="t">${esc(tituloEstado(a.e))}</span>
+      ${lista.length > 1 ? `<button class="x" data-fechar="${a.id}" title="Fechar aba">×</button>` : ''}</div>`).join('')}
+    <button class="aba-add" id="aba-add" title="Nova aba (Ctrl+T)">+</button></div>
+    <div class="abas-dir">
+      <button class="btn sm ghost" id="aba-dup" title="Duplicar a aba atual">⧉</button>
+      <button class="btn sm ${S.prefs.split && S.prefs.split.on ? 'pri' : 'ghost'}" id="aba-split" title="Dividir a tela: consulta ao lado (Ctrl+Shift+D)"><svg viewBox="0 0 24 24" style="width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M12 4v16"/></svg>Dividir</button>
+    </div>`;
+  $$('.aba', bar).forEach(el => {
+    el.onclick = e => { if (e.target.closest('.x')) return; irParaAba(el.dataset.aba); };
+    el.onauxclick = e => { if (e.button === 1) { e.preventDefault(); fecharAba(el.dataset.aba); } };
+    el.ondragstart = e => { e.dataTransfer.setData('text/plain', el.dataset.aba); el.classList.add('arrastando'); };
+    el.ondragend = () => $$('.aba', bar).forEach(x => x.classList.remove('arrastando', 'dz'));
+    el.ondragover = e => { e.preventDefault(); el.classList.add('dz'); };
+    el.ondragleave = () => el.classList.remove('dz');
+    el.ondrop = e => {
+      e.preventDefault(); el.classList.remove('dz');
+      const src = e.dataTransfer.getData('text/plain'), lista = abas();
+      const i = lista.findIndex(x => x.id === src), j = lista.findIndex(x => x.id === el.dataset.aba);
+      if (i < 0 || j < 0 || i === j) return;
+      const [mv] = lista.splice(i, 1); lista.splice(j, 0, mv); save(); renderAbas();
+    };
+  });
+  $$('[data-fechar]', bar).forEach(b => b.onclick = e => { e.stopPropagation(); fecharAba(b.dataset.fechar); });
+  $('#aba-add', bar).onclick = () => novaAba({ view: 'dashboard' });
+  $('#aba-dup', bar).onclick = () => duplicarAba(S.prefs.abaAtiva);
+  $('#aba-split', bar).onclick = () => alternarSplit();
+}
+
+/* ---------- divisão de tela ---------- */
+const splitCfg = () => { if (!S.prefs.split) S.prefs.split = { on: false, larg: 42, alvo: null }; return S.prefs.split; };
+function alternarSplit(alvo) {
+  const sp = splitCfg();
+  if (alvo) { sp.alvo = alvo; sp.on = true; }
+  else sp.on = !sp.on;
+  if (sp.on && !sp.alvo) {
+    const e = estadoAtual();
+    sp.alvo = e.view === 'cadernos' && e.artId ? null : null;
+    if (!sp.alvo) { const l = S.leis.find(x => artigosDe(x).length) || S.leis[0]; if (l) sp.alvo = { tipo: 'lei', leiId: l.id }; }
+  }
+  save(); aplicarSplit(); renderAbas();
+  if (sp.on) renderPainel2();
+}
+function aplicarSplit() {
+  const sp = splitCfg(), palco = $('#palco'); if (!palco) return;
+  const estreito = window.innerWidth < 900 || (typeof isMobile === 'function' && isMobile());
+  const lig = sp.on && !estreito;
+  palco.classList.toggle('dividido', lig);
+  $('#painel2').hidden = !lig; $('#divisor').hidden = !lig;
+  if (lig) $('#painel2').style.flexBasis = Math.min(70, Math.max(22, sp.larg || 42)) + '%';
+  if (sp.on && estreito) toast('A divisão de tela precisa de uma janela mais larga', 'err');
+  else if (lig) { const c = $('#content'); if (c && c.clientWidth < 520 && S.prefs.tree && (UI.view === 'leitura' || UI.view === 'cadernos')) toast('Espaço apertado: recolha a lista da esquerda no botão do topo'); }
+}
+function p2Alvo() { const sp = splitCfg(); return sp.alvo; }
+function p2Conteudo(al) {
+  if (!al) return '<div class="empty">Escolha o que consultar aqui ao lado.</div>';
+  if (al.tipo === 'cad') { const c = cadById(al.cadId); if (!c) return '<div class="empty">Caderno não encontrado.</div>';
+    return `<div class="p2-cab"><b>${esc(c.titulo)}</b><span class="mini">${esc((ramoById(c.ramo) || {}).nome || 'caderno')}</span></div><div class="p2-corpo doc">${sanitizeHtml(c.conteudo) || '<div class="empty">Caderno vazio.</div>'}</div>`;
+  }
+  if (al.tipo === 'lei') { const l = leiById(al.leiId); if (!l) return '<div class="empty">Lei não encontrada.</div>';
+    const arts = artigosDe(l);
+    return `<div class="p2-cab"><b>${esc(l.epigrafe)}</b><span class="mini">${esc(l.nome)}</span></div>
+      <div class="p2-corpo"><div class="p2-lista">${arts.length ? arts.map(a => `<a data-p2art="${a.id}"><b>${esc(artLabel(a))}</b><span>${esc(plain(a.texto).replace(/^Art\.?\s*[\d.ºo°\-A-Z]+\.?\s*/i, '').slice(0, 90))}</span></a>`).join('') : '<div class="empty">Texto ainda não importado nesta lei.</div>'}</div></div>`;
+  }
+  const r = findArt(al.leiId, al.artId); if (!r) return '<div class="empty">Artigo não encontrado.</div>';
+  const cr = crumbsDe(r.lei, r.art);
+  return `<div class="p2-cab"><b>${esc(r.lei.sigla)}, ${esc(artLabel(r.art))}</b><span class="mini">${esc(r.lei.epigrafe)}</span>${r.art.estrelas ? `<span style="color:var(--star)">${'★'.repeat(r.art.estrelas)}</span>` : ''}</div>
+    ${cr.length ? `<div class="crumbs vp-crumbs" style="padding:0 12px">${cr.map(c => `<span>${esc(c)}</span>`).join('')}</div>` : ''}
+    <div class="p2-corpo doc leitura">${sanitizeHtml(r.art.texto) || '<div class="empty">Artigo sem texto.</div>'}
+      ${temNota(r.art) ? `<div class="vp-extra"><b>Notas</b>${notasHtml(r.art)}</div>` : ''}
+      ${temJuris(r.art) ? `<div class="vp-extra"><b>Jurisprudência</b>${jurisHtml(r.art)}</div>` : ''}</div>`;
+}
+function renderPainel2() {
+  const P = $('#painel2'); if (!P || P.hidden) return;
+  const al = p2Alvo(), r = al && al.tipo === 'art' ? findArt(al.leiId, al.artId) : null;
+  P.innerHTML = `<div class="p2-bar">
+      <div class="p2-busca"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="p2-q" placeholder="lei, artigo ou caderno…" autocomplete="off" value="${esc(UI.p2q || '')}"><div class="p2-res" id="p2-res" hidden></div></div>
+      ${r ? `<button class="ibtn" id="p2-prev" title="Artigo anterior">‹</button><button class="ibtn" id="p2-next" title="Próximo artigo">›</button>` : ''}
+      <button class="ibtn" id="p2-troca" title="Trocar com o painel principal (o que está aqui vai para a esquerda)">⇄</button>
+      <button class="ibtn" id="p2-abrir" title="Abrir no painel principal">⤢</button>
+      <button class="ibtn" id="p2-x" title="Fechar a divisão">✕</button>
+    </div>${p2Conteudo(al)}`;
+  const q = $('#p2-q', P);
+  const desenhar = () => {
+    const cx = $('#p2-res', P), termo = (q.value || '').trim();
+    UI.p2q = q.value;
+    if (!termo) { cx.hidden = true; return; }
+    const alvo = norm(termo);
+    const leis = S.leis.filter(l => norm(l.sigla + ' ' + l.epigrafe + ' ' + l.nome).includes(alvo)).slice(0, 8);
+    const cads = S.cadernos.filter(c => c.tipo === 'caderno' && norm(c.titulo).includes(alvo)).slice(0, 5);
+    let arts = [];
+    const m = termo.match(/^\s*([A-Za-zÀ-ÿ.]+)?\s*(?:art\.?\s*)?(\d[\d.\-A-Za-z]*)\s*$/i);
+    if (m) {
+      const sig = m[1] ? norm(m[1]) : null, num = normNumero(m[2]);
+      for (const l of S.leis) { if (sig && !norm(l.sigla).startsWith(sig)) continue; const a = artigosDe(l).find(x => normNumero(x.numero) === num); if (a) arts.push({ l, a }); if (arts.length > 6) break; }
+    }
+    if (!arts.length && alvo.length > 3) {
+      for (const l of S.leis) { for (const a of artigosDe(l)) { if (norm(plain(a.texto)).includes(alvo)) { arts.push({ l, a }); break; } } if (arts.length > 6) break; }
+    }
+    cx.innerHTML = (arts.map(x => `<a data-go="${x.l.id}|${x.a.id}"><b>${esc(x.l.sigla)}, ${esc(artLabel(x.a))}</b><span>${esc(plain(x.a.texto).slice(0, 60))}</span></a>`).join('')
+      + leis.map(l => `<a data-lei="${l.id}"><b>${esc(l.sigla)}</b><span>${esc(l.epigrafe)}</span></a>`).join('')
+      + cads.map(c => `<a data-cad="${c.id}"><b>≡ ${esc(c.titulo)}</b><span>caderno</span></a>`).join('')) || '<div class="empty">Nada encontrado.</div>';
+    cx.hidden = false;
+    $$('[data-go]', cx).forEach(a => a.onclick = () => { const [li, ai] = a.dataset.go.split('|'); p2Ver({ tipo: 'art', leiId: li, artId: ai }); });
+    $$('[data-lei]', cx).forEach(a => a.onclick = () => p2Ver({ tipo: 'lei', leiId: a.dataset.lei }));
+    $$('[data-cad]', cx).forEach(a => a.onclick = () => p2Ver({ tipo: 'cad', cadId: a.dataset.cad }));
+  };
+  q.oninput = debounce(desenhar, 200);
+  q.onkeydown = e => { if (e.key === 'Escape') { q.value = ''; UI.p2q = ''; $('#p2-res', P).hidden = true; } };
+  $$('[data-p2art]', P).forEach(a => a.onclick = () => p2Ver({ tipo: 'art', leiId: al.leiId, artId: a.dataset.p2art }));
+  const viz = d => { if (!r) return null; const arts = artigosDe(r.lei); const i = arts.findIndex(x => x.id === r.art.id); return arts[i + d] || null; };
+  if ($('#p2-prev', P)) $('#p2-prev', P).onclick = () => { const v = viz(-1); if (v) p2Ver({ tipo: 'art', leiId: al.leiId, artId: v.id }); };
+  if ($('#p2-next', P)) $('#p2-next', P).onclick = () => { const v = viz(1); if (v) p2Ver({ tipo: 'art', leiId: al.leiId, artId: v.id }); };
+  $('#p2-x', P).onclick = () => { splitCfg().on = false; save(); aplicarSplit(); renderAbas(); };
+  $('#p2-abrir', P).onclick = () => p2ParaPrincipal(false);
+  $('#p2-troca', P).onclick = () => p2ParaPrincipal(true);
+}
+function p2Ver(alvo) { splitCfg().alvo = alvo; save(); renderPainel2(); }
+function p2ParaPrincipal(trocar) {
+  const al = p2Alvo(); if (!al) return;
+  const antes = estadoAtual();
+  if (al.tipo === 'cad') openCad(al.cadId);
+  else if (al.tipo === 'lei') openLeiHome(al.leiId);
+  else openArt(al.leiId, al.artId);
+  if (trocar) {
+    const novo = antes.view === 'cadernos' && antes.cadId ? { tipo: 'cad', cadId: antes.cadId }
+      : antes.view === 'leitura' && antes.artId ? { tipo: 'art', leiId: antes.leiId, artId: antes.artId }
+      : antes.view === 'leitura' && antes.leiId ? { tipo: 'lei', leiId: antes.leiId } : null;
+    splitCfg().alvo = novo; save(); renderPainel2();
+  }
+}
+/* abrir qualquer coisa no painel lateral, de qualquer lugar do programa */
+function verAoLado(alvo) { alternarSplit(alvo); toast('Aberto na divisão de tela', 'ok'); }
+
+/* ---------- divisor arrastável ---------- */
+function initDivisor() {
+  const d = $('#divisor'), palco = $('#palco'); if (!d) return;
+  let arrastando = false;
+  const mover = ev => {
+    if (!arrastando) return;
+    const r = palco.getBoundingClientRect();
+    const pc = Math.min(70, Math.max(22, ((r.right - ev.clientX) / r.width) * 100));
+    splitCfg().larg = Math.round(pc); $('#painel2').style.flexBasis = pc + '%';
+  };
+  d.addEventListener('mousedown', e => { e.preventDefault(); arrastando = true; document.body.style.cursor = 'col-resize'; });
+  document.addEventListener('mousemove', mover);
+  document.addEventListener('mouseup', () => { if (arrastando) { arrastando = false; document.body.style.cursor = ''; save(); } });
+  d.addEventListener('dblclick', () => { splitCfg().larg = 42; $('#painel2').style.flexBasis = '42%'; save(); });
+}
+
+/* ---------- ligação geral ---------- */
+function initAbas() {
+  if (!S.prefs.abas) { S.prefs.abas = [{ id: uid(), e: estadoAtual() }]; S.prefs.abaAtiva = S.prefs.abas[0].id; }
+  renderAbas(); aplicarSplit(); if (splitCfg().on) renderPainel2();
+  initDivisor();
+  window.addEventListener('resize', debounce(() => { aplicarSplit(); if (splitCfg().on) renderPainel2(); }, 200));
+  document.addEventListener('keydown', e => {
+    if (e.target.closest('input,textarea,[contenteditable="true"]') && !(e.ctrlKey || e.metaKey)) return;
+    if ((e.ctrlKey || e.metaKey) && !e.shiftKey && e.key.toLowerCase() === 't') { e.preventDefault(); novaAba({ view: 'dashboard' }); return; }
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'd') { e.preventDefault(); alternarSplit(); return; }
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Tab') { e.preventDefault(); const l = abas(); const i = l.findIndex(x => x.id === S.prefs.abaAtiva); irParaAba(l[(i + (e.shiftKey ? l.length - 1 : 1)) % l.length].id); return; }
+    if ((e.ctrlKey || e.metaKey) && /^[1-9]$/.test(e.key)) { const l = abas(), n = +e.key; if (l[n - 1]) { e.preventDefault(); irParaAba(l[n - 1].id); } }
+  });
 }
 </script>
 <script>
@@ -5117,6 +5441,7 @@ async function init() {
   window.addEventListener('beforeunload', () => { if (UI.dirty) salvarTexto(true); if (typeof window._docFlush === 'function') window._docFlush(); salvarEmergencia(); try { saveNow(); } catch (_) {} });
   document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') { if (UI.dirty) salvarTexto(true); if (typeof window._docFlush === 'function') window._docFlush(); salvarEmergencia(); saveNow(); } });
   initBuscaGlobal();
+  initAbas();
   initMobile();
 }
 init().catch(e => { console.error(e); document.body.innerHTML = '<pre style="padding:20px">Erro ao iniciar: ' + esc(e.stack || e) + '</pre>'; });
