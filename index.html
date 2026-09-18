@@ -6460,13 +6460,35 @@ const lei_nCabs = l => l.itens.filter(x => x.tipo === 'cab').length;
    Usa a mesma configuração de IA do programa (Ajustes › IA).
    ===================================================================== */
 const iaProv = () => (S.ia && S.ia.provedor) || 'gemini';
-const iaModelo = () => (S.ia && S.ia.modelo && S.ia.modelo[iaProv()]) || '';
-const iaPronta = () => !!(S.ia && S.ia.chaves && S.ia.chaves[iaProv()] && iaModelo());
+/* o modelo é o mesmo que o resto do programa usa: no modo "mais recente disponível"
+   ele vem do primeiro item da lista oficial, e não do campo modelo, que fica vazio */
+const iaModelo = () => (typeof modeloAtual === 'function' ? modeloAtual(iaProv()) : ((S.ia && S.ia.modelo && S.ia.modelo[iaProv()]) || ''));
+const iaTemChave = prov => !!(S.ia && S.ia.chaves && S.ia.chaves[prov || iaProv()]);
+/* basta a chave: se o modelo ainda não estiver resolvido, a lista oficial é buscada na hora */
+const iaPronta = () => iaTemChave();
 function exigirIA() {
-  if (iaPronta()) return true;
-  toast('Configure a chave e o modelo em Ajustes › Inteligência artificial', 'err');
+  if (iaTemChave()) return true;
+  const outro = iaProv() === 'gemini' ? 'claude' : 'gemini';
+  if (iaTemChave(outro)) {
+    const nome = outro === 'gemini' ? 'Gemini' : 'Claude';
+    confirmar('Trocar de provedor', `A chave do ${esc(iaProv() === 'gemini' ? 'Gemini' : 'Claude')} não está preenchida, mas a do ${nome} está. Usar o ${nome}?`, () => { S.ia.provedor = outro; save(); toast('Provedor alterado para ' + nome, 'ok'); }, false);
+    return false;
+  }
+  toast('Informe a chave de API em Ajustes › Inteligência artificial', 'err');
   showView('config');
   return false;
+}
+/* devolve o identificador do modelo, buscando a lista oficial se ainda não houver */
+async function iaGarantirModelo() {
+  let m = iaModelo();
+  if (m) return m;
+  const prov = iaProv();
+  try { await listarModelos(prov); m = iaModelo(); } catch (e) { /* segue para a reserva */ }
+  if (m) return m;
+  /* reserva: identificadores estáveis, caso a lista não possa ser buscada agora */
+  m = prov === 'gemini' ? 'gemini-2.5-flash' : 'claude-sonnet-4-5';
+  toast('Não consegui buscar a lista de modelos; usando ' + m + '. Escolha outro em Ajustes se preferir.', '');
+  return m;
 }
 /* a IA responde em JSON; aqui a resposta é limpa e recuperada mesmo com sobras */
 function objetosSoltos(s) {
@@ -6488,7 +6510,8 @@ function lerJsonIA(bruto) {
   try { return JSON.parse(nucleo); } catch (e) { const o = objetosSoltos(s); if (o.length) return o[0]; throw new Error('a IA não devolveu um JSON válido'); }
 }
 async function iaJson(sistema, pergunta) {
-  const txt = await chamarIA({ prov: iaProv(), modelo: iaModelo(), sistema, mensagens: [{ role: 'user', text: pergunta }] });
+  const modelo = await iaGarantirModelo();
+  const txt = await chamarIA({ prov: iaProv(), modelo, sistema, mensagens: [{ role: 'user', text: pergunta }] });
   return lerJsonIA(txt);
 }
 const SIST_PREC = SISTEMA_BASE + '\nVocê está catalogando precedentes qualificados brasileiros. Responda SOMENTE com JSON válido, sem markdown e sem texto fora do JSON. Nunca invente número de processo, de tema ou de súmula: se um dado não estiver no texto fornecido, devolva string vazia.';
@@ -6686,7 +6709,7 @@ function renderPrecAnalise() {
       <button class="btn pri" id="pa-ir">Analisar</button>
       <button class="btn sm ghost" id="pa-limpar">limpar</button>
       <input type="file" id="pa-file" accept=".txt,.md,.html,.htm,text/plain,text/html" hidden>
-      <span class="mini">${iaPronta() ? esc((iaProv() === 'gemini' ? 'Gemini' : 'Claude') + ' · ' + iaModelo()) : 'IA não configurada — vá a Ajustes'}</span>
+      <span class="mini">${iaPronta() ? esc((iaProv() === 'gemini' ? 'Gemini' : 'Claude') + ' · ' + (iaModelo() || 'modelo escolhido na hora')) : 'IA não configurada — vá a Ajustes'}</span>
     </div>
     <textarea class="inp" id="pa-txt" rows="7" placeholder="Cole aqui a peça, a minuta, a ementa ou o trecho que quer confrontar com o seu acervo de precedentes…" style="width:100%;margin-bottom:12px">${esc(UI.precTexto || '')}</textarea>
     <div id="pa-res"></div>`;
