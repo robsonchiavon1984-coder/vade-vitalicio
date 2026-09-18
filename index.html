@@ -5527,6 +5527,46 @@ async function drvFetch(url, opts = {}) {
   if (r.status === 401) { drvTok = null; if (!drvGesto && !drvExtensao()) throw new Error('sessão do Google expirada — clique em "Sincronizar agora" para reconectar'); const t2 = await drvToken(true); return fetch(url, Object.assign({}, opts, { headers: Object.assign({ Authorization: 'Bearer ' + t2 }, opts.headers || {}) })); }
   return r;
 }
+/* o Google devolve o motivo real dentro do corpo; sem isto, só se via "403" */
+async function drvMotivo(r) {
+  let txt = '';
+  try { txt = await r.text(); } catch (_) {}
+  let j = null; try { j = JSON.parse(txt); } catch (_) {}
+  const e = (j && j.error) || {};
+  const det = (e.errors && e.errors[0]) || {};
+  const razao = det.reason || e.status || '';
+  const msg = e.message || det.message || (txt || '').slice(0, 200);
+  return { status: r.status, razao, msg };
+}
+/* traduz os erros mais comuns para o que o usuário precisa fazer */
+function drvExplicar(m) {
+  const t = (m.razao + ' ' + m.msg).toLowerCase();
+  if (m.status === 403 && /accessnotconfigured|has not been used|is disabled|api.*not.*enabled/.test(t))
+    return 'a Google Drive API ainda não está ativada no seu projeto do Google Cloud. Abra o console, vá em "APIs e serviços" › "Biblioteca", procure Google Drive API e clique em Ativar. Depois espere um ou dois minutos e tente de novo.';
+  if (m.status === 403 && /insufficient|scope|permission_denied|insufficientpermissions/.test(t))
+    return 'a permissão de acesso ao Drive não foi concedida a este aplicativo. Na tela de consentimento do projeto, inclua o escopo .../auth/drive.file; depois clique em "Reconectar pedindo as permissões" aqui embaixo, para o Google perguntar de novo.';
+  if (m.status === 403 && /rate|quota|limit/.test(t))
+    return 'o Google recusou por excesso de chamadas no momento. Espere alguns minutos e tente novamente.';
+  if (m.status === 401) return 'a sessão do Google expirou. Clique em "Reconectar pedindo as permissões".';
+  if (m.status === 404) return 'o arquivo não foi encontrado no Drive; ele será recriado na próxima sincronização.';
+  return '';
+}
+async function drvFalha(r, oque) {
+  const m = await drvMotivo(r);
+  const expl = drvExplicar(m);
+  const e = new Error(`${oque}: Drive respondeu ${m.status}${m.razao ? ' (' + m.razao + ')' : ''}${m.msg ? ' — ' + m.msg : ''}${expl ? '\n\nO que fazer: ' + expl : ''}`);
+  e.drive = m; return e;
+}
+/* pergunta ao Google quais permissões o token realmente recebeu */
+async function drvEscopos() {
+  try {
+    const t = await drvToken(false).catch(() => null); if (!t) return null;
+    const r = await fetch('https://oauth2.googleapis.com/tokeninfo?access_token=' + encodeURIComponent(t));
+    if (!r.ok) return null;
+    const j = await r.json();
+    return { escopos: String(j.scope || '').split(/\s+/).filter(Boolean), email: j.email || '', expira: +j.expires_in || 0 };
+  } catch (_) { return null; }
+}
 async function drvConta() {
   try { const r = await drvFetch('https://www.googleapis.com/oauth2/v3/userinfo'); const j = await r.json(); return j.email || ''; } catch (_) { return ''; }
 }
@@ -5539,27 +5579,27 @@ async function drvAchar() {
   }
   const q = encodeURIComponent(`name='${d.nome}' and trashed=false`);
   const r2 = await drvFetch(`https://www.googleapis.com/drive/v3/files?q=${q}&fields=files(id,name,modifiedTime)&pageSize=5`);
-  if (!r2.ok) throw new Error('Drive respondeu ' + r2.status);
+  if (!r2.ok) throw await drvFalha(r2, 'ao procurar o arquivo no Drive');
   const j2 = await r2.json();
   return (j2.files || [])[0] || null;
 }
 async function drvBaixar(id) {
   const r = await drvFetch(`https://www.googleapis.com/drive/v3/files/${id}?alt=media`);
-  if (!r.ok) throw new Error('não foi possível baixar (' + r.status + ')');
+  if (!r.ok) throw await drvFalha(r, 'ao baixar o arquivo do Drive');
   return r.json();
 }
 async function drvSubir(id, dados) {
   const corpo = JSON.stringify(dados);
   if (id) {
     const r = await drvFetch(`https://www.googleapis.com/upload/drive/v3/files/${id}?uploadType=media&fields=id,modifiedTime`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: corpo });
-    if (!r.ok) throw new Error('não foi possível gravar (' + r.status + ')');
+    if (!r.ok) throw await drvFalha(r, 'ao gravar no Drive');
     return r.json();
   }
   const lim = '-------vm' + Date.now();
   const meta = { name: drv().nome, mimeType: 'application/json', description: 'Vade Mecum Vitalício — dados sincronizados' };
   const body = `--${lim}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n${JSON.stringify(meta)}\r\n--${lim}\r\nContent-Type: application/json\r\n\r\n${corpo}\r\n--${lim}--`;
   const r = await drvFetch(`https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,modifiedTime`, { method: 'POST', headers: { 'Content-Type': 'multipart/related; boundary=' + lim }, body });
-  if (!r.ok) throw new Error('não foi possível criar o arquivo (' + r.status + ')');
+  if (!r.ok) throw await drvFalha(r, 'ao criar o arquivo no Drive');
   return r.json();
 }
 async function drvSincronizar(manual) {
@@ -5648,10 +5688,11 @@ function renderCardDrive() {
       <div class="row"><label>Sincronizar sozinho<select id="dv-auto"><option value="1" ${d.auto ? 'selected' : ''}>sim</option><option value="0" ${!d.auto ? 'selected' : ''}>não, só quando eu mandar</option></select></label>
         <label>A cada<select id="dv-min">${[2, 5, 10, 15, 30, 60].map(n => `<option value="${n}" ${+d.minutos === n ? 'selected' : ''}>${n} minutos</option>`).join('')}</select></label></div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-        ${d.ligado ? `<button class="btn" id="dv-sinc">Sincronizar agora</button><button class="btn ghost danger" id="dv-sair">Desligar</button>` : `<button class="btn pri" id="dv-conectar" ${amb.ok ? '' : 'disabled'}>Conectar com o Google</button>`}
+        ${d.ligado ? `<button class="btn" id="dv-sinc">Sincronizar agora</button><button class="btn ghost" id="dv-repedir" title="Faz o Google perguntar as permissões de novo, do zero">Reconectar pedindo as permissões</button><button class="btn ghost" id="dv-diag">Diagnosticar</button><button class="btn ghost danger" id="dv-sair">Desligar</button>` : `<button class="btn pri" id="dv-conectar" ${amb.ok ? '' : 'disabled'}>Conectar com o Google</button>`}
         <span class="mini">${d.ligado ? `Conectado${d.conta ? ' como ' + esc(d.conta) : ''} · última sincronização em <b>${fmtDataHora(d.ultima)}</b>` : 'Não conectado.'}</span>
       </div>
-      ${d.erro ? `<div class="warnbox">Última tentativa falhou: ${esc(d.erro)}</div>` : ''}
+      ${d.erro ? `<div class="warnbox" style="white-space:pre-wrap">Última tentativa falhou: ${esc(d.erro)}</div>` : ''}
+      <div id="dv-diag-res" class="mini" style="line-height:1.6"></div>
     </div></div>`;
   const q = s => $(s, box);
   if (q('#dv-id')) q('#dv-id').onchange = e => { drv().clientId = e.target.value.trim(); save(); renderCardDrive(); };
@@ -5660,6 +5701,49 @@ function renderCardDrive() {
   if (q('#dv-conectar')) q('#dv-conectar').onclick = () => drvConectar();
   if (q('#dv-sinc')) q('#dv-sinc').onclick = () => drvSincronizar(true);
   if (q('#dv-sair')) q('#dv-sair').onclick = () => drvDesconectar();
+  if (q('#dv-repedir')) q('#dv-repedir').onclick = async () => {
+    drvGesto = true; drvTok = null; drvExp = 0;
+    try { await drvToken(true); d.erro = ''; save(); toast('Permissões concedidas de novo — tente sincronizar', 'ok'); renderCardDrive(); }
+    catch (e) { d.erro = String(e.message || e); save(); renderCardDrive(); }
+    finally { drvGesto = false; }
+  };
+  if (q('#dv-diag')) q('#dv-diag').onclick = () => drvDiagnosticar();
+}
+/* diz exatamente onde está o problema, em vez de deixar o usuário adivinhar */
+async function drvDiagnosticar() {
+  const R = $('#dv-diag-res'); if (!R) return;
+  const d = drv();
+  R.innerHTML = 'Conferindo…';
+  const linhas = [];
+  const ok = t => `<div>✓ ${t}</div>`, mal = t => `<div style="color:#b91c1c">✗ ${t}</div>`;
+  linhas.push(d.clientId.trim() ? ok('ID de cliente informado') : mal('ID de cliente OAuth não informado'));
+  const amb = drvAmbiente();
+  linhas.push(amb.ok ? ok('Ambiente permite login: ' + amb.tipo) : mal('Ambiente não permite login (file://)'));
+  drvGesto = true;
+  try {
+    const t = await drvToken(true);
+    linhas.push(t ? ok('Token obtido do Google') : mal('Sem token'));
+    const info = await drvEscopos();
+    if (!info) linhas.push(mal('Não consegui consultar as permissões do token'));
+    else {
+      const temDrive = info.escopos.some(x => /drive\.file|\/drive$/.test(x));
+      linhas.push(temDrive ? ok('Permissão de Drive concedida (drive.file)') : mal('Permissão de Drive NÃO concedida — o token só tem: ' + (info.escopos.join(', ') || 'nenhuma')));
+      if (info.email) linhas.push(ok('Conta: ' + info.email));
+      if (!temDrive) linhas.push('<div style="margin-top:6px">Na tela de consentimento do projeto, acrescente o escopo <code>https://www.googleapis.com/auth/drive.file</code>; depois clique em “Reconectar pedindo as permissões”.</div>');
+    }
+    /* uma chamada mínima ao Drive, só para ver a resposta real */
+    const r = await drvFetch('https://www.googleapis.com/drive/v3/about?fields=user(emailAddress)');
+    if (r.ok) linhas.push(ok('A Drive API respondeu normalmente'));
+    else {
+      const m = await drvMotivo(r);
+      linhas.push(mal(`A Drive API respondeu ${m.status}${m.razao ? ' (' + m.razao + ')' : ''}${m.msg ? ' — ' + m.msg : ''}`));
+      const expl = drvExplicar(m);
+      if (expl) linhas.push('<div style="margin-top:6px">O que fazer: ' + expl + '</div>');
+    }
+  } catch (e) {
+    linhas.push(mal(String(e.message || e)));
+  } finally { drvGesto = false; }
+  R.innerHTML = '<div style="margin-top:8px;padding:10px 12px;border:1px solid var(--gb2);border-radius:10px;background:var(--glass2)">' + linhas.join('') + '</div>';
 }
 function initDrive() {
   drv(); drvStatus(); drvAgendar();
