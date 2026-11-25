@@ -1,0 +1,20 @@
+/* OpeLegis — etiquetas (palavras-chave / institutos) */
+.og-tags-field { margin: 8px 0 6px; font: 12.5px/1.35 -apple-system, "Segoe UI", Roboto, Arial, sans-serif; }
+.og-tags-label { font-weight: 600; color: #334155; margin-bottom: 4px; font-size: 12px; }
+.og-tags-box { display: flex; flex-wrap: wrap; gap: 5px; align-items: center; min-height: 32px; padding: 4px 6px;
+  border: 1px solid #cbd5e1; border-radius: 8px; background: #fff; cursor: text; }
+.og-tags-input { flex: 1 1 140px; min-width: 120px; border: 0 !important; outline: none !important; box-shadow: none !important;
+  font: inherit; color: #0f172a; background: transparent !important; padding: 3px 2px !important; margin: 0 !important; height: auto !important; }
+.og-tag-chip { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 999px;
+  background: #ede9fe; color: #5b21b6; border: 1px solid #ddd6fe; font-size: 11.5px; font-weight: 600; line-height: 1.5;
+  cursor: pointer; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+.og-tag-chip:hover { background: #ddd6fe; }
+.og-tag-chip.edit { cursor: default; }
+.og-tag-chip.ro { cursor: default; }
+.og-tag-x { border: 0; background: transparent; color: #7c3aed; cursor: pointer; font-size: 11px; padding: 0 0 0 2px; line-height: 1; }
+.og-tag-x:hover { color: #b91c1c; }
+.og-tags-sug { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 5px; }
+.og-tag-sug { border: 1px dashed #c4b5fd; background: #faf5ff; color: #6d28d9; border-radius: 999px; padding: 2px 8px;
+  font: 11.5px/1.5 inherit; cursor: pointer; }
+.og-tag-sug:hover { background: #ede9fe; }
+.og-tags-view { display: flex; flex-wrap: wrap; gap: 5px; margin: 6px 0; }

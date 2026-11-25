@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="OpeLegis" />
+  <meta name="theme-color" content="#3b3226" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="apple-touch-icon" href="icon-180.png" />
+  <link rel="icon" href="icon-192.png" />
+  <title>OpeLegis — Vade Mecum</title>
+  <link rel="stylesheet" href="vademecum.css" />
+  <link rel="stylesheet" href="tags.css" />
+  <link rel="stylesheet" href="dock.css" />
+  <link rel="stylesheet" href="notavoz.css" />
+  <link rel="stylesheet" href="ipad.css" />
+</head>
+<body>
+  <div id="app">
+
+    <!-- ============================ TOPO ============================ -->
+    <header id="top">
+      <button id="btnBack" class="ic-btn hidden" title="Voltar (Alt+←)">←</button>
+      <span id="brand">📖 <b>Vade&nbsp;Mecum</b></span>
+      <span id="crumb" class="crumb"></span>
+      <span class="sp"></span>
+      <button id="btnFind"  class="ic-btn hidden" title="Buscar no texto (Ctrl+F)">🔍</button>
+      <button id="btnIndex" class="ic-btn hidden" title="Índice de artigos">≡</button>
+      <button id="btnNotes" class="ic-btn hidden" title="Anotações desta lei">✍️</button>
+      <button id="btnSpeak" class="ic-btn hidden" title="Ouvir esta lei no Leitor em Voz (a partir do artigo que está no alto da tela)">🔊</button>
+      <button id="btnAdd"   class="ic-btn" title="Cadastrar nova lei">＋</button>
+      <button id="btnMenu"  class="ic-btn" title="Mais opções">⋯</button>
+    </header>
+
+    <!-- busca global (estante) -->
+    <div id="searchbar">
+      <input id="q" type="search" placeholder="Buscar lei ou ramo…" autocomplete="off" />
+    </div>
+
+    <!-- ============================ ESTANTE ============================ -->
+    <section id="viewShelf">
+      <nav id="orelhas" aria-label="Ramos do Direito"></nav>
+      <div id="pagina">
+        <div id="paginaHead"></div>
+        <div id="lawList"></div>
+      </div>
+    </section>
+
+    <!-- ============================ LEITOR ============================ -->
+    <section id="viewReader" hidden>
+
+      <div id="findbar" hidden>
+        <input id="fq" type="search" placeholder="Buscar no texto ou &quot;art 5&quot;…" autocomplete="off" />
+        <span id="fcount">0/0</span>
+        <button id="fprev" class="ic-btn" title="Anterior (Shift+Enter)">▲</button>
+        <button id="fnext" class="ic-btn" title="Próximo (Enter)">▼</button>
+        <button id="fclose" class="ic-btn" title="Fechar (Esc)">✕</button>
+      </div>
+
+      <div id="statusbar"></div>
+
+      <aside id="indexPane" hidden>
+        <div class="pane-head">
+          <div class="segmented" role="tablist">
+            <button id="modeEstrutura" class="seg" role="tab">Estrutura</button>
+            <button id="modeArtigos"   class="seg" role="tab">Artigos</button>
+          </div>
+          <button id="iclose" class="ic-btn">✕</button>
+        </div>
+        <div class="pane-head pane-head-2">
+          <input id="iq" type="search" placeholder="filtrar (nº do artigo ou palavra)…" />
+        </div>
+        <div id="indexList"></div>
+      </aside>
+
+      <aside id="notesPane" hidden>
+        <div class="pane-head">
+          <b>Anotações</b>
+          <input id="nq" type="search" placeholder="filtrar…" />
+          <button id="nclose" class="ic-btn">✕</button>
+        </div>
+        <div id="notesList"></div>
+      </aside>
+
+      <div id="reader">
+        <div id="loading" class="loading" hidden><span class="spin"></span> Abrindo…</div>
+        <article id="lawtext" class="lawtext"></article>
+      </div>
+    </section>
+
+    <!-- ============================ RODAPÉ ============================ -->
+    <div id="toast" class="hidden"></div>
+
+    <!-- ============================ MODAIS ============================ -->
+    <div id="modal" class="modal hidden">
+      <div class="modal-box">
+        <div class="modal-head"><b id="modalTitle">Título</b><button id="modalX" class="ic-btn">✕</button></div>
+        <div id="modalBody" class="modal-body"></div>
+        <div id="modalFoot" class="modal-foot"></div>
+      </div>
+    </div>
+
+    <div id="menu" class="menu hidden"></div>
+    <div id="annobar" class="annobar hidden"></div>
+    <div id="popover" class="popover hidden"></div>
+  </div>
+
+  <script src="shim.js"></script>
+  <script src="dock.js"></script>
+  <script src="notavoz.js"></script>
+  <script src="lc-shared.js"></script>
+  <script src="catalogo.js"></script>
+  <script src="vm-anno.js"></script>
+  <script src="tags.js"></script>
+  <script src="vademecum.js"></script>
+  <script src="ipad.js"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+/* OpeLegis no iPad — ajustes de tela cheia e de toque */
+html, body { -webkit-text-size-adjust: 100%; }
+body { padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); background: var(--capa); }
+#app { background: var(--papel); }
+#btnAdd { display: none !important; }          /* sem rede no iPad: leis novas vêm do pacote */
+.ic-btn { min-width: 38px; height: 38px; font-size: 17px; border-radius: 9px; }
+#top { gap: 8px; padding: 8px 12px; }
+#brand { font-size: 16px; }
+#top.reading .crumb { font-size: 15px; }
+#searchbar input, .pane-head input, .modal-body input, .modal-body textarea, .modal-body select { font-size: 16px; padding: 9px 11px; }
+#reader { -webkit-overflow-scrolling: touch; }
+#lawtext { max-width: 860px; margin-left: auto; margin-right: auto; font-size: 17px; line-height: 1.65; }
+#statusbar { font-size: 12.5px; }
+.menu { max-height: 80vh; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.menu button { padding: 11px 14px !important; font-size: 15px !important; }
+.modal-box { max-width: 620px; width: 92vw; }
+.modal-body .hint { font-size: 14px; line-height: 1.55; }
+.modal-foot .btn { padding: 10px 14px; font-size: 15px; }
+.annobar button, .popover button { min-height: 36px; font-size: 15px; }
+.ip-barra { height: 8px; border-radius: 5px; background: var(--papel-alt); border: 1px solid var(--linha); overflow: hidden; margin: 12px 0 8px; }
+.ip-barra i { display: block; height: 100%; width: 0; background: var(--dourado); transition: width .2s; }
+.hint .ok { color: #1d6b3a; font-weight: 600; } .hint .warn { color: #a35b00; } .err { color: #a32020; }
+code { font-size: 12.5px; background: var(--papel-alt); padding: 1px 4px; border-radius: 4px; word-break: break-all; }
+@media (max-width: 700px) { #lawtext { font-size: 16px; } }
